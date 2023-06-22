@@ -10,10 +10,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="User", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"nameUser"}),
-        @UniqueConstraint(columnNames = {"email"})})
-@Accessors(chain = true,fluent = false)
+@Accessors(chain = true)
 public class User {
 
     @Id

@@ -13,7 +13,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class UserRegisterDto {
 
-    private Long id;
+    private Long  id;
     private String username;
     private String password;
     private String email;
@@ -21,17 +21,17 @@ public class UserRegisterDto {
     private String lastName;
     private UserRole role;
 
-    public static UserRegisterDto mapToDto(User user) {
+    public static UserRegisterDto mapToDto(User user){
         return new UserRegisterDto()
                 .setId(user.getId())
                 .setUsername(user.getUserName())
                 .setPassword(user.getPassword())
                 .setEmail(user.getEmail())
                 .setFirstName(user.getFirstName())
-                .setLastName(user.getLastName())
-                .setRole(user.getRole());
+                .setLastName(user.getLastName());
+
     }
-}
+    }
 
 
 
