@@ -7,16 +7,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.experimental.Accessors;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "User", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"username"}),
-        @UniqueConstraint(columnNames = {"email"})
-})
-public class User {
+@Accessors(chain = true,fluent = false)
+
+public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +37,10 @@ public class User {
 
     @Column(name = "last_name", nullable = false)
     private String lastName;
+
+
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
 
 
 
