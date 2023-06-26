@@ -6,6 +6,8 @@ import org.apache.catalina.User;
 
 import java.util.Optional;
 
-public interface UserService  {
+public interface UserService {
     UserRegisterDTO saveUser(Users users);
+
+    Optional<Users> searchUserName(String name);
 }

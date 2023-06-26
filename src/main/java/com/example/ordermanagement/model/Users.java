@@ -13,6 +13,10 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @Data
 @Entity
+//@Table(name = "User",uniqueConstraints = {
+//        @UniqueConstraint(columnNames = {"username"}),
+//        @UniqueConstraint(columnNames ={"emai"})
+//})
 @Accessors(chain = true,fluent = false)
 
 public class Users {
