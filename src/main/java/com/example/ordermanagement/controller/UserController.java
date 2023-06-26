@@ -1,5 +1,6 @@
 package com.example.ordermanagement.controller;
 
+import com.example.ordermanagement.exception.BadRequestException;
 import com.example.ordermanagement.exception.ElementAlreadyExistsException;
 import com.example.ordermanagement.exception.UserRestExceptionHandler;
 import com.example.ordermanagement.model.Users;
@@ -25,17 +26,21 @@ public class UserController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody Users users){
+    public ResponseEntity<?> register(@RequestBody Users users) {
 
-     if (userService.searchUserName(users.getUserName()).isPresent() || userService.searchUserName(users.getEmail()).isPresent()){
-         return exceptionHandler.handleException(HttpStatus.CONFLICT, new ElementAlreadyExistsException("User") );
-     }
+
+        if (users.getUserName() == null || users.getPassword() == null || users.getLastName() == null || users.getFirstName() == null ||
+                users.getEmail() == null) {
+            return exceptionHandler.handleException(HttpStatus.BAD_REQUEST, new BadRequestException());
+        }
+
+        if (userService.searchUserName(users.getUserName()).isPresent() || userService.searchUserName(users.getEmail()).isPresent()) {
+            return exceptionHandler.handleException(HttpStatus.CONFLICT, new ElementAlreadyExistsException("User"));
+        }
+
 
         return new ResponseEntity<>(userService.saveUser(users), HttpStatus.CREATED);
     }
-
-
-
 
 
 }
