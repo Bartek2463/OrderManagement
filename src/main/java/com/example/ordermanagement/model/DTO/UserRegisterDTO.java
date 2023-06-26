@@ -1,7 +1,7 @@
-package com.example.ordermanagement.model.user.dto;
+package com.example.ordermanagement.model.DTO;
 
-import com.example.ordermanagement.model.user.User;
-import com.example.ordermanagement.model.user.UserRole;
+import com.example.ordermanagement.model.Users;
+import com.example.ordermanagement.model.UserRole;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -11,28 +11,24 @@ import lombok.experimental.Accessors;
 @Setter
 @Builder
 @Accessors(chain = true)
-public class UserRegisterDto {
+public class UserRegisterDTO {
 
-    private Long id;
-    private String username;
+    private Long  id;
+    private String userName;
     private String password;
     private String email;
     private String firstName;
     private String lastName;
     private UserRole role;
 
-    public static UserRegisterDto mapToDto(User user) {
-        return new UserRegisterDto()
+    public static UserRegisterDTO mapToDto (Users user){
+        return new UserRegisterDTO()
                 .setId(user.getId())
-                .setUsername(user.getUserName())
+                .setUserName(user.getUserName())
                 .setPassword(user.getPassword())
                 .setEmail(user.getEmail())
                 .setFirstName(user.getFirstName())
                 .setLastName(user.getLastName())
-                .setRole(user.getRole());
+                .setRole(user.getUserRole());
     }
 }
-
-
-
-

@@ -1,6 +1,7 @@
-package com.example.ordermanagement.model.user;
+package com.example.ordermanagement.model;
 
 public enum UserRole {
 
     USER, OWNER, ADMIN
+
 }
