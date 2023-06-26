@@ -34,7 +34,7 @@ public class UserController {
             return exceptionHandler.handleException(HttpStatus.BAD_REQUEST, new BadRequestException());
         }
 
-        if (userService.searchUserName(users.getUserName()).isPresent() || userService.searchUserName(users.getEmail()).isPresent()) {
+        if (userService.searchUserName(users.getUserName()).isPresent() || userService.serachUserEmail(users.getEmail()).isPresent()) {
             return exceptionHandler.handleException(HttpStatus.CONFLICT, new ElementAlreadyExistsException("User"));
         }
 

@@ -10,4 +10,5 @@ public interface UserService {
     UserRegisterDTO saveUser(Users users);
 
     Optional<Users> searchUserName(String name);
+    Optional<Users> serachUserEmail(String email);
 }
