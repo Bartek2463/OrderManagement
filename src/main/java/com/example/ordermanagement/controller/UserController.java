@@ -1,8 +1,10 @@
 package com.example.ordermanagement.controller;
 
+import com.example.ordermanagement.exception.BadCredentialsException;
 import com.example.ordermanagement.exception.BadRequestException;
 import com.example.ordermanagement.exception.ElementAlreadyExistsException;
 import com.example.ordermanagement.exception.UserRestExceptionHandler;
+import com.example.ordermanagement.model.DTO.UserLoginDTO;
 import com.example.ordermanagement.model.Users;
 import com.example.ordermanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
 
 @Controller
 @RestController
@@ -42,5 +46,15 @@ public class UserController {
         return new ResponseEntity<>(userService.saveUser(users), HttpStatus.CREATED);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody UserLoginDTO userLoginDTO){
+        Optional<Users> usersOpt = userService.searchUserName(userLoginDTO.getUsername());
+
+        if (usersOpt.isPresent()){
+            return exceptionHandler.handleException(HttpStatus.BAD_REQUEST,new BadCredentialsException("Bad credentials provided"));
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+                //todo
+              }
 
 }
