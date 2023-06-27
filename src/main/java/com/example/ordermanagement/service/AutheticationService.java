@@ -9,6 +9,5 @@ public interface AutheticationService {
 
     boolean isAdmin();
     boolean idLogged();
-    boolean isUser();
-    boolean isOwner();
+
 }

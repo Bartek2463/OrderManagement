@@ -48,6 +48,8 @@ public class Users {
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
+    @Transient
+    private String token;
 
 
 }

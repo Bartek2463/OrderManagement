@@ -62,7 +62,7 @@ public class JwtProviderImpl implements JwtProvider {
                 .collect(Collectors.toSet());
 
         UserDetails userDetails = UserPrinciple.builder()
-                .username(username)
+                .userName(username)
                 .authorities(authorities)
                 .id(userId)
                 .build();
