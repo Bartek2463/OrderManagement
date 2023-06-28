@@ -1,6 +1,7 @@
 package com.example.ordermanagement.controller;
 
 import com.example.ordermanagement.deleteException.SuccesseDelete;
+import com.example.ordermanagement.deleteException.SuccesseDeleteHandler;
 import com.example.ordermanagement.exception.ElementNotFoundException;
 import com.example.ordermanagement.exception.EmptyListException;
 import com.example.ordermanagement.exception.UserRestExceptionHandler;
@@ -30,6 +31,8 @@ public class OwnerUserController {
     @Autowired
     UserRestExceptionHandler exceptionHandler;
 
+    @Autowired
+    SuccesseDeleteHandler deleteHandler;
 
 
     @GetMapping("/owners")
@@ -48,31 +51,33 @@ public class OwnerUserController {
         UserDetailsDTO updateUserDetailsDTO = userService.updateById(userDetailsDTO, id);
 
         if (updateUserDetailsDTO == null) {
-            return exceptionHandler.handleException(HttpStatus.NOT_FOUND, new ElementNotFoundException("User", "ID", id.toString()));
+            return exceptionHandler.handleException(
+                    HttpStatus.NOT_FOUND, new ElementNotFoundException("User", "ID", id.toString()));
         }
 
         return new ResponseEntity<>(userDetailsDTO, HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/owners/{ownerId}")
-    public ResponseEntity<?> getOwnerByid(@PathVariable("ownerId")Long id){
+    public ResponseEntity<?> getOwnerByid(@PathVariable("ownerId") Long id) {
         Optional<Users> usersOpt = userService.serachById(id);
-        if (usersOpt.isEmpty()){
-            return exceptionHandler.handleException(HttpStatus.NOT_FOUND,new ElementNotFoundException("User","ID",id.toString()));
+        if (usersOpt.isEmpty()) {
+            return exceptionHandler.handleException(
+                    HttpStatus.NOT_FOUND, new ElementNotFoundException("User", "ID", id.toString()));
         }
         Users users = usersOpt.get();
         UserDetailsDTO userDetailsDTO = UserDetailsDTO.mapToDto(users);
-        return  new ResponseEntity<>(userDetailsDTO,HttpStatus.OK);
+        return new ResponseEntity<>(userDetailsDTO, HttpStatus.OK);
     }
 
     @DeleteMapping("/owners/{ownerId}")
-    public ResponseEntity<?> deleteByid(@PathVariable("ownerID")Long id){
+    public ResponseEntity<?> deleteByid(@PathVariable("ownerId") Long id) {
         Optional<Users> usersOpt = userService.serachById(id);
-        if (usersOpt.isEmpty()){
-            return exceptionHandler.handleException(HttpStatus.NOT_FOUND,new ElementNotFoundException("User","ID",id.toString()));
+        if (usersOpt.isEmpty()) {
+            return exceptionHandler.handleException(
+                    HttpStatus.NOT_FOUND, new ElementNotFoundException("User", "ID", id.toString()));
         }
-        return new ResponseEntity<>(HttpStatus.OK,new SuccesseDelete());
+        userService.delete(id);
+        return deleteHandler.handleDelete(HttpStatus.OK, new SuccesseDelete());
     }
-
-
 }
