@@ -7,7 +7,7 @@ public interface AutheticationService {
 
     UserLoginDTO signInAndReturnJWT(Users signInRequest);
 
-    boolean isAdmin();
+    boolean isOwner();
     boolean idLogged();
 
 }

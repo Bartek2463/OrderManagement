@@ -56,13 +56,13 @@ public class AutheticationServiceImpl implements AutheticationService {
      * @return "true" if user has Admin role, "false" if user has other role.
      */
     @Override
-    public boolean isAdmin() {
+    public boolean isOwner() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = auth.getName();
         Optional<Users> currentUserEntityOptional = userService.searchUserName(currentUserName);
         if (currentUserEntityOptional.isPresent()) {
             Users currentUserEntity = currentUserEntityOptional.get();
-            if (currentUserEntity.getUserRole().equals(UserRole.ADMIN)) {
+            if (currentUserEntity.getUserRole().equals(UserRole.OWNER)) {
                 return true;
             } else {
                 return false;

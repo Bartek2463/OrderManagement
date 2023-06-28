@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/"))
                 .authorizeRequests()
-                .antMatchers("**/myprofile/**").hasAnyRole(UserRole.USER.name(), UserRole.ADMIN.name())
+                .antMatchers("**/myprofile/**").hasAnyRole(UserRole.USER.name(), UserRole.OWNER.name())
                 //.antMatchers("/api/pets/**").hasRole(UserRole.ADMIN.name())
                 //.antMatchers("/api/appointments/**").hasRole(UserRole.ADMIN.name())
                 //.antMatchers("/api/owners/**").hasRole(UserRole.ADMIN.name())
