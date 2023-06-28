@@ -14,7 +14,7 @@ import lombok.experimental.Accessors;
 public class UserLoginDTO {
 
     private Long id;
-    private String username;
+    private String userName;
     private String password;
     private String firstName;
     private String lastName;
@@ -23,7 +23,7 @@ public class UserLoginDTO {
     public static UserLoginDTO mapToDto(Users user){
         return new UserLoginDTO()
                 .setId(user.getId())
-                .setUsername(user.getUserName())
+                .setUserName(user.getUserName())
                 .setPassword(user.getPassword())
                 .setFirstName(user.getFirstName())
                 .setLastName(user.getLastName())
@@ -32,7 +32,7 @@ public class UserLoginDTO {
     public static Users mapToModel(UserLoginDTO userLoginDTO){
         return new Users()
                 .setId(userLoginDTO.getId())
-                .setUserName(userLoginDTO.getUsername())
+                .setUserName(userLoginDTO.getUserName())
                 .setPassword(userLoginDTO.getPassword())
                 .setFirstName(userLoginDTO.getFirstName())
                 .setLastName(userLoginDTO.getLastName())

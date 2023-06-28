@@ -42,7 +42,7 @@ public class UserController {
             return exceptionHandler.handleException(HttpStatus.BAD_REQUEST, new BadRequestException());
         }
 
-        if (userService.searchUserName(users.getUserName()).isPresent() || userService.serachUserEmail(users.getEmail()).isPresent()) {
+        if (userService.searchUserName(users.getUserName()).isPresent() || userService.searchUserEmail(users.getEmail()).isPresent()) {
             return exceptionHandler.handleException(HttpStatus.CONFLICT, new ElementAlreadyExistsException("User"));
         }
 
@@ -52,9 +52,9 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserLoginDTO userLoginDTO) {
-        Optional<Users> usersOpt = userService.searchUserName(userLoginDTO.getUsername());
+        Optional<Users> usersOpt = userService.searchUserName(userLoginDTO.getUserName());
 
-        if (usersOpt.isPresent()) {
+        if (!usersOpt.isPresent()) {
             return exceptionHandler.handleException(HttpStatus.BAD_REQUEST, new BadCredentialsException("Bad credentials provided"));
         }
         return new ResponseEntity<>(autheticationService.signInAndReturnJWT(UserLoginDTO.mapToModel(userLoginDTO)),HttpStatus.OK);
