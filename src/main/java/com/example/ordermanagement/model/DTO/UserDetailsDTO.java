@@ -13,6 +13,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class UserDetailsDTO {
 
+
     private String userName;
     private String email;
     private String firstName;

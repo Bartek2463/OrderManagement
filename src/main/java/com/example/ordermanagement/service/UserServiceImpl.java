@@ -57,17 +57,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetailsDTO updateById(UserDetailsDTO detailsDto, Long id) {
-        Users editUsers = serachById(id).orElseThrow();
 
-        editUsers.setUserName(detailsDto.getFirstName());
-        editUsers.setEmail(detailsDto.getEmail());
-        editUsers.setFirstName(detailsDto.getFirstName());
-        editUsers.setLastName(detailsDto.getLastName());
+        Optional<Users> editOptional = serachById(id);
+        if (editOptional.isEmpty()) {
+            return null;
+        }
+
+        detailsDto.setUserName(detailsDto.getFirstName());
+        detailsDto.setEmail(detailsDto.getEmail());
+        detailsDto.setFirstName(detailsDto.getFirstName());
+        detailsDto.setLastName(detailsDto.getLastName());
         detailsDto.setPassword(passwordEncoder.encode(detailsDto.getPassword()));
-        editUsers.setPassword(detailsDto.getPassword());
+        detailsDto.setPassword(detailsDto.getPassword());
 
-        System.out.println("editUsers after = " + editUsers);
-        Users saveEditUser = userRepository.save(editUsers);
+        System.out.println("editUsers after = " + detailsDto);
+        Users saveEditUser = userRepository.save(editOptional.get());
         System.out.println(" after saveEditUser = " + saveEditUser);
 
         return UserDetailsDTO.mapToDto(saveEditUser);
