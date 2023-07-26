@@ -18,10 +18,13 @@ import javax.validation.constraints.Size;
 //@Table(name = "User",uniqueConstraints = {
 //        @UniqueConstraint(columnNames = {"username"}),
 //        @UniqueConstraint(columnNames ={"emai"})
+
+
 //})
 @Accessors(chain = true,fluent = false)
 
 public class Users {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
