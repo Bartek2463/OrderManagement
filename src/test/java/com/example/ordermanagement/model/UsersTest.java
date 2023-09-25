@@ -21,7 +21,7 @@ class UsersTest {
 
         //when
         users.setUserName("");
-        users.se
+
 
 
         //then

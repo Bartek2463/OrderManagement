@@ -1,17 +1,29 @@
 package com.example.ordermanagement.model;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.apache.catalina.User;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 class UserRoleTest {
 
-    @BeforeEach
-    void setUp() {
+    @ParameterizedTest
+    @EnumSource(UserRole.class)
+    void allRoleSatusShouldBeShorterThan5Chars(UserRole userRole){
+
+        assertThat(userRole.toString().length(),lessThan(6));
     }
 
-    @AfterEach
-    void tearDown() {
+    @ParameterizedTest
+    @EnumSource(UserRole.class)
+    void allRoleStatusShouldBeLongerThan1Chars(UserRole userRole){
+        assertThat(userRole.toString().length(),greaterThanOrEqualTo(2));
+    }
+    @ParameterizedTest
+    @EnumSource(UserRole.class)
+    void allRoleShouldBeSizeNoMoreThan2(UserRole userRole){
+        assertThat(userRole.getClass().getFields().length,is(2));
     }
 }
