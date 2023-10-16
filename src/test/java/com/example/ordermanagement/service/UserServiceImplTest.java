@@ -49,7 +49,6 @@ class UserServiceImplTest {
 
 
         List<UserListDTO> allUsers = userServiceImpl.getAllUsers();
-        allUsers.add(0,1)
 
         assertThat(allUsers,is(null));
 
