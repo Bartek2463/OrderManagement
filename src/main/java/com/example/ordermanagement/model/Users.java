@@ -1,10 +1,7 @@
 package com.example.ordermanagement.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
@@ -22,7 +19,8 @@ import javax.validation.constraints.Size;
 
 //})
 @Accessors(chain = true,fluent = false)
-
+@Builder
+@Table(name = "users")
 public class Users {
 
 
