@@ -1,6 +1,6 @@
 package com.example.ordermanagement.security;
 
-import com.example.ordermanagement.model.Users;
+import com.example.ordermanagement.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,7 +20,7 @@ public class UserPrinciple implements UserDetails {
     private long id;
     private String userName;
     transient private String password;
-    transient private Users users;
+    transient private User users;
     private Set<GrantedAuthority> authorities;
 
     @Override

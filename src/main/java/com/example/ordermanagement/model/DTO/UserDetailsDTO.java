@@ -1,6 +1,6 @@
 package com.example.ordermanagement.model.DTO;
 
-import com.example.ordermanagement.model.Users;
+import com.example.ordermanagement.model.User;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -21,7 +21,7 @@ public class UserDetailsDTO {
     private String password;
 
 
-    public static UserDetailsDTO mapToDto(Users users){
+    public static UserDetailsDTO mapToDto(User users){
         return new UserDetailsDTO()
                 .setUserName(users.getUserName())
                 .setEmail(users.getEmail())
@@ -30,8 +30,8 @@ public class UserDetailsDTO {
                 .setPassword(users.getPassword());
     }
 
-    public static Users mapToModel(UserDetailsDTO detailsDto) {
-        return new Users()
+    public static User mapToModel(UserDetailsDTO detailsDto) {
+        return new User()
                 .setUserName(detailsDto.getUserName())
                 .setEmail(detailsDto.getEmail())
                 .setFirstName(detailsDto.getFirstName())

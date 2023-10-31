@@ -2,7 +2,7 @@ package com.example.ordermanagement.service;
 
 import com.example.ordermanagement.model.DTO.UserLoginDTO;
 import com.example.ordermanagement.model.UserRole;
-import com.example.ordermanagement.model.Users;
+import com.example.ordermanagement.model.User;
 import com.example.ordermanagement.security.UserPrinciple;
 import com.example.ordermanagement.security.jwt.JwtProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class AutheticationServiceImpl implements AutheticationService {
      * @return Signed in User
      */
     @Override
-    public UserLoginDTO signInAndReturnJWT(Users signInRequest) {
+    public UserLoginDTO signInAndReturnJWT(User signInRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(signInRequest.getUserName(), signInRequest.getPassword())
         );
@@ -43,7 +43,7 @@ public class AutheticationServiceImpl implements AutheticationService {
         UserPrinciple userPrinciple = (UserPrinciple) authentication.getPrincipal();
         String jwt = jwtProvider.generateToken(userPrinciple);
 
-        Users signInUser = userPrinciple.getUsers();
+        User signInUser = userPrinciple.getUsers();
         signInUser.setToken(jwt);
         UserLoginDTO userLoginDto = UserLoginDTO.mapToDto(signInUser);
 
@@ -59,9 +59,9 @@ public class AutheticationServiceImpl implements AutheticationService {
     public boolean isOwner() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = auth.getName();
-        Optional<Users> currentUserEntityOptional = userService.searchUserName(currentUserName);
+        Optional<User> currentUserEntityOptional = userService.searchUserName(currentUserName);
         if (currentUserEntityOptional.isPresent()) {
-            Users currentUserEntity = currentUserEntityOptional.get();
+            User currentUserEntity = currentUserEntityOptional.get();
             if (currentUserEntity.getUserRole().equals(UserRole.OWNER)) {
                 return true;
             } else {

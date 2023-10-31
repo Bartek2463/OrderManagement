@@ -4,7 +4,7 @@ import com.example.ordermanagement.model.DTO.UserDetailsDTO;
 import com.example.ordermanagement.model.DTO.UserListDTO;
 import com.example.ordermanagement.model.DTO.UserRegisterDTO;
 import com.example.ordermanagement.model.UserRole;
-import com.example.ordermanagement.model.Users;
+import com.example.ordermanagement.model.User;
 import com.example.ordermanagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
  private PasswordEncoder passwordEncoder;
 
     @Override
-    public UserRegisterDTO saveUser(Users users) {
+    public UserRegisterDTO saveUser(User users) {
 
         if (users.getUserName().equals("My business") && users.getPassword().equals("password")){
             users.setUserRole(UserRole.OWNER);
@@ -31,35 +31,35 @@ public class UserServiceImpl implements UserService {
         }
 
         users.setPassword(passwordEncoder.encode(users.getPassword()));
-        Users savedUser = userRepository.saveAndFlush(users);
+        User savedUser = userRepository.saveAndFlush(users);
         return UserRegisterDTO.mapToDto(savedUser);
     }
 
     @Override
-    public Optional<Users> searchUserName(String name) {
+    public Optional<User> searchUserName(String name) {
         return userRepository.findByUserName(name);
     }
 
     @Override
-    public Optional<Users> searchUserEmail(String email) {
+    public Optional<User> searchUserEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
     @Override
-    public Optional<Users> serachById(Long ownerId) {
+    public Optional<User> serachById(Long ownerId) {
         return userRepository.findById(ownerId);
     }
 
     @Override
     public List<UserListDTO> getAllUsers() {
-        List<Users> allUsers = userRepository.findAll();
+        List<User> allUsers = userRepository.findAll();
         return UserListDTO.mapToDto(allUsers);
     }
 
     @Override
     public UserDetailsDTO updateById(UserDetailsDTO detailsDto, Long id) {
 
-        Optional<Users> editOptional = serachById(id);
+        Optional<User> editOptional = serachById(id);
         if (editOptional.isEmpty()) {
             return null;
         }
@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
         detailsDto.setPassword(detailsDto.getPassword());
 
         System.out.println("editUsers after = " + detailsDto);
-        Users saveEditUser = userRepository.save(editOptional.get());
+        User saveEditUser = userRepository.save(editOptional.get());
         System.out.println(" after saveEditUser = " + saveEditUser);
 
         return UserDetailsDTO.mapToDto(saveEditUser);

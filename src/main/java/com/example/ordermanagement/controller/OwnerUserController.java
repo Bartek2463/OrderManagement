@@ -7,7 +7,7 @@ import com.example.ordermanagement.exception.EmptyListException;
 import com.example.ordermanagement.exception.UserRestExceptionHandler;
 import com.example.ordermanagement.model.DTO.UserDetailsDTO;
 import com.example.ordermanagement.model.DTO.UserListDTO;
-import com.example.ordermanagement.model.Users;
+import com.example.ordermanagement.model.User;
 import com.example.ordermanagement.repository.UserRepository;
 import com.example.ordermanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,19 +60,19 @@ public class OwnerUserController {
 
     @GetMapping("/owners/{ownerId}")
     public ResponseEntity<?> getOwnerByid(@PathVariable("ownerId") Long id) {
-        Optional<Users> usersOpt = userService.serachById(id);
+        Optional<User> usersOpt = userService.serachById(id);
         if (usersOpt.isEmpty()) {
             return exceptionHandler.handleException(
                     HttpStatus.NOT_FOUND, new ElementNotFoundException("User", "ID", id.toString()));
         }
-        Users users = usersOpt.get();
+        User users = usersOpt.get();
         UserDetailsDTO userDetailsDTO = UserDetailsDTO.mapToDto(users);
         return new ResponseEntity<>(userDetailsDTO, HttpStatus.OK);
     }
 
     @DeleteMapping("/owners/{ownerId}")
     public ResponseEntity<?> deleteByid(@PathVariable("ownerId") Long id) {
-        Optional<Users> usersOpt = userService.serachById(id);
+        Optional<User> usersOpt = userService.serachById(id);
         if (usersOpt.isEmpty()) {
             return exceptionHandler.handleException(
                     HttpStatus.NOT_FOUND, new ElementNotFoundException("User", "ID", id.toString()));

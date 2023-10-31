@@ -8,20 +8,20 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @AllArgsConstructor
 @Data
 @Entity
 //@Table(name = "User",uniqueConstraints = {
-//        @UniqueConstraint(columnNames = {"username"}),
-//        @UniqueConstraint(columnNames ={"emai"})
-
-
+//        @UniqueConstraint(columnNames = {"user_name"}),
+//        @UniqueConstraint(columnNames ={"email"})
+//
+//
 //})
 @Accessors(chain = true,fluent = false)
 @Builder
-@Table(name = "users")
-public class Users {
+@ToString
+public class User {
 
 
     @Id

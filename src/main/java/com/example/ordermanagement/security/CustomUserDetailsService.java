@@ -2,7 +2,7 @@ package com.example.ordermanagement.security;
 
 
 import com.example.ordermanagement.exception.ElementNotFoundException;
-import com.example.ordermanagement.model.Users;
+import com.example.ordermanagement.model.User;
 import com.example.ordermanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,7 +21,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Users users = userService.searchUserName(username)
+        User users = userService.searchUserName(username)
                 .orElseThrow(() -> new ElementNotFoundException("User", "username", username));
 
         Set<GrantedAuthority> authorities = Set.of(SecurityUtils.convertToAuthority(users.getUserRole().name()));

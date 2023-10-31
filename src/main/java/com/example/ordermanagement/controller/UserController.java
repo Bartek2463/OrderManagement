@@ -5,7 +5,7 @@ import com.example.ordermanagement.exception.BadRequestException;
 import com.example.ordermanagement.exception.ElementAlreadyExistsException;
 import com.example.ordermanagement.exception.UserRestExceptionHandler;
 import com.example.ordermanagement.model.DTO.UserLoginDTO;
-import com.example.ordermanagement.model.Users;
+import com.example.ordermanagement.model.User;
 import com.example.ordermanagement.service.AutheticationService;
 import com.example.ordermanagement.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +34,7 @@ public class UserController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody Users users) {
+    public ResponseEntity<?> register(@RequestBody User users) {
 
 
         if (users.getUserName() == null || users.getPassword() == null || users.getLastName() == null || users.getFirstName() == null ||
@@ -52,7 +52,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserLoginDTO userLoginDTO) {
-        Optional<Users> usersOpt = userService.searchUserName(userLoginDTO.getUserName());
+        Optional<User> usersOpt = userService.searchUserName(userLoginDTO.getUserName());
 
         if (!usersOpt.isPresent()) {
             return exceptionHandler.handleException(HttpStatus.BAD_REQUEST, new BadCredentialsException("Bad credentials provided"));

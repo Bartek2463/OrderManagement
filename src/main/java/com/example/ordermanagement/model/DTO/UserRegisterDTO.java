@@ -1,6 +1,6 @@
 package com.example.ordermanagement.model.DTO;
 
-import com.example.ordermanagement.model.Users;
+import com.example.ordermanagement.model.User;
 import com.example.ordermanagement.model.UserRole;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -21,7 +21,7 @@ public class UserRegisterDTO {
     private String lastName;
     private UserRole role;
 
-    public static UserRegisterDTO mapToDto (Users user){
+    public static UserRegisterDTO mapToDto (User user){
         return new UserRegisterDTO()
                 .setId(user.getId())
                 .setUserName(user.getUserName())

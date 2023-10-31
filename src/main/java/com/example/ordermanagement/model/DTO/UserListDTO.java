@@ -1,7 +1,7 @@
 package com.example.ordermanagement.model.DTO;
 
 
-import com.example.ordermanagement.model.Users;
+import com.example.ordermanagement.model.User;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -21,22 +21,22 @@ public class UserListDTO {
     private String lastName;
 
 
-    public static UserListDTO mapToDto(Users user){
+    public static UserListDTO mapToDto(User user){
         return new UserListDTO()
                 .setId(user.getId())
                 .setFirstName(user.getFirstName())
                 .setLastName(user.getLastName());
     }
 
-    public static Users mapToModel(UserListDTO dto) {
-        return new Users()
+    public static User mapToModel(UserListDTO dto) {
+        return new User()
                 .setId(dto.getId())
                 .setFirstName(dto.getFirstName())
                 .setLastName(dto.getLastName());
 
     }
 
-    public static List<UserListDTO> mapToDto(List<Users> users) {
+    public static List<UserListDTO> mapToDto(List<User> users) {
         return users.stream()
                 .map(UserListDTO::mapToDto)
                 .collect(Collectors.toList());

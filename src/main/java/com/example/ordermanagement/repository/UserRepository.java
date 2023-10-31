@@ -1,16 +1,16 @@
 package com.example.ordermanagement.repository;
 
-import com.example.ordermanagement.model.Users;
+import com.example.ordermanagement.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<Users, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
-   Optional<Users> findByUserName(String user);
-   Optional<Users> findByEmail(String email);
+   Optional<User> findByUserName(String user);
+   Optional<User> findByEmail(String email);
 
 
 
