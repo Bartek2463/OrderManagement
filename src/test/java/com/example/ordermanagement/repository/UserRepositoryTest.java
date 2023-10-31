@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -70,23 +71,75 @@ class UserRepositoryTest {
         assertThat(allUser.get(0).getUserName()).isNotSameAs(allUser.get(1).getUserName());
     }
 
-   @DisplayName("Junit test for get employee by id operation")
-     @Test
-     public void givenUserObject_whenFindById_thenReturnUserObject(){
+    @DisplayName("Junit test for get employee by id operation")
+    @Test
+    public void givenUserObject_whenFindById_thenReturnUserObject() {
         //given - precondition or setup
 
-         userRepository.save(user);
-         //when - action or the behaviour that we are going test
+        userRepository.save(user);
+        //when - action or the behaviour that we are going test
 
-         User userDB = userRepository.findById(user.getId()).get();
-         //then - verify the output
-         assertThat(userDB).isNotNull();
-         assertThat(userDB.getUserRole()).isEqualTo(UserRole.USER);
-         assertThat(userDB.getEmail()).isEqualTo("kowalski@gmail.com");
-     }
+        User userDB = userRepository.findById(user.getId()).get();
+        //then - verify the output
+        assertThat(userDB).isNotNull();
+        assertThat(userDB.getUserRole()).isEqualTo(UserRole.USER);
+        assertThat(userDB.getEmail()).isEqualTo("kowalski@gmail.com");
+    }
 
-     @Test
+    @DisplayName("Junit test for get user by email operation")
+    @Test
+    public void givenUserEmail_whenFindByEmail_thenReturnUserObject() {
+        //given - precondition or setup
+        userRepository.save(user);
+        //when - action or the behaviour that we are going test
 
+        User userDB = userRepository.findByEmail(user.getEmail()).get();
+        //then - verify the output
+
+        assertThat(userDB).isNotNull();
+
+    }
+
+    @DisplayName("Junit test for update user operation")
+    @Test
+    public void givenUserEmail_whenUpdate_thenReturnUpdateUser() {
+        //given - precondition or setup
+        userRepository.save(user);
+        //when - action or the behaviour that we are going test
+
+        User savedUser = userRepository.findById(user.getId()).get();
+        savedUser.setEmail("ram@gamil.com");
+        savedUser.setFirstName("Ram");
+        User updateUserEmail = userRepository.save(savedUser);
+        //then - verify the output
+        assertThat(updateUserEmail.getEmail()).isEqualTo("ram@gamil.com");
+        assertThat(updateUserEmail.getFirstName()).isEqualTo("Ram");
+
+
+    }
+
+    @DisplayName("Unit test for delete User operation")
+    @Test
+    public void givenUserObject_whenDelete_thenRemoveUser() {
+        //given - precondition or setup
+        userRepository.save(user);
+        //when - action or the behaviour that we are going test
+        userRepository.deleteById(user.getId());
+        Optional<User> userOptional = userRepository.findById(user.getId());
+
+        //then - verify the output
+        assertThat(userOptional).isEmpty();
+    }
+
+    //junit test for custom query using JPQL with index
+         @Test
+         public void given_when_then(){
+            //given - precondition or setup
+
+             //when - action or the behaviour that we are going test
+
+             //then - verify the output
+         }
 }
 
 
