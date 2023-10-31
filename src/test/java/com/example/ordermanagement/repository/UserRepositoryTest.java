@@ -132,14 +132,17 @@ class UserRepositoryTest {
     }
 
     //junit test for custom query using JPQL with index
-         @Test
-         public void given_when_then(){
-            //given - precondition or setup
+    @Test
+    public void givenFirstNameAndLastName_whenFindByJPQL_thenReturnUserObject() {
+        //given - precondition or setup
+        userRepository.save(user);
+        String firstName = "Jan";
+        String lastName = "Kowalski";
+        //when - action or the behaviour that we are going test
 
-             //when - action or the behaviour that we are going test
-
-             //then - verify the output
-         }
+        userRepository.findByJPQL(firstName,lastName);
+        //then - verify the output
+    }
 }
 
 
