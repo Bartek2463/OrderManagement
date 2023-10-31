@@ -132,17 +132,37 @@ class UserRepositoryTest {
     }
 
     //junit test for custom query using JPQL with index
+    @DisplayName("JUnit test for custom query using JPQL with index")
     @Test
-    public void givenFirstNameAndLastName_whenFindByJPQL_thenReturnUserObject() {
+    public void givenFirstNameAndLastName_whenFindByJPQL_then() {
         //given - precondition or setup
         userRepository.save(user);
         String firstName = "Jan";
         String lastName = "Kowalski";
         //when - action or the behaviour that we are going test
 
-        userRepository.findByJPQL(firstName,lastName);
+        User savedUser = userRepository.findByJPQL(firstName, lastName);
         //then - verify the output
+        assertThat(savedUser).isNotNull();
     }
+
+    //junit test for
+    @DisplayName("JUnit test for custom query using JPQL with Named params")
+         @Test
+         public void givenFirstNameAndLastName_whenfindByJPQLNamesParams_then(){
+            //given - precondition or setup
+
+             userRepository.save(user);
+             String firstName = "Jan";
+             String lastName = "Kowalski";
+
+             //when - action or the behaviour that we are going test
+
+             User savedUser = userRepository.findByJPQLNamesParams(firstName, lastName);
+             //then - verify the output
+             assertThat(savedUser).isNotNull();
+         }
+
 }
 
 
