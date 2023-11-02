@@ -148,20 +148,34 @@ class UserRepositoryTest {
 
     //junit test for
     @DisplayName("JUnit test for custom query using JPQL with Named params")
-         @Test
-         public void givenFirstNameAndLastName_whenfindByJPQLNamesParams_then(){
-            //given - precondition or setup
+    @Test
+    public void givenFirstNameAndLastName_whenFindByJPQLNamesParams_then() {
+        //given - precondition or setup
 
-             userRepository.save(user);
-             String firstName = "Jan";
-             String lastName = "Kowalski";
+        userRepository.save(user);
+        String firstName = "Jan";
+        String lastName = "Kowalski";
 
-             //when - action or the behaviour that we are going test
+        //when - action or the behaviour that we are going test
 
-             User savedUser = userRepository.findByJPQLNamesParams(firstName, lastName);
-             //then - verify the output
-             assertThat(savedUser).isNotNull();
-         }
+        User savedUser = userRepository.findByJPQLNamesParams(firstName, lastName);
+        //then - verify the output
+        assertThat(savedUser).isNotNull();
+    }
+
+    //junit test for
+    @Test
+    public void givenFirstNameAndLastName_whenFindByNativeSQL_thenReturnUserObject() {
+        //given - precondition or setup
+        userRepository.save(user);
+        //when - action or the behaviour that we are going test
+
+        User savedUser = userRepository.findByNativeSQL(user.getFirstName(), user.getLastName());
+
+        //then - verify the output
+        assertThat(savedUser).isNotNull();
+
+    }
 
 }
 
