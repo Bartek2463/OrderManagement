@@ -163,7 +163,8 @@ class UserRepositoryTest {
         assertThat(savedUser).isNotNull();
     }
 
-    //junit test for
+    //junit test for customs query using native SQL with index
+    @DisplayName("JUnit test for customs query using native SQL with index")
     @Test
     public void givenFirstNameAndLastName_whenFindByNativeSQL_thenReturnUserObject() {
         //given - precondition or setup
@@ -176,6 +177,20 @@ class UserRepositoryTest {
         assertThat(savedUser).isNotNull();
 
     }
+
+    //junit test for
+    @DisplayName("Junit test for customs query using native SQL with index")
+    @Test
+    public void given_when_then() {
+        //given - precondition or setup
+        userRepository.save(user);
+        //when - action or the behaviour that we are going test
+
+        User savedUser = userRepository.findByNativeSQLNamed(user.getFirstName(), user.getLastName());
+        //then - verify the output
+        assertThat(savedUser).isNotNull();
+    }
+
 
 }
 
