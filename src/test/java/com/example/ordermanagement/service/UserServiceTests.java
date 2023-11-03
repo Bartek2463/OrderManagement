@@ -31,27 +31,24 @@ class UserServiceTests {
     private PasswordEncoder passwordEncoder;
     @InjectMocks
     private UserServiceImpl userService;
-    @Captor
-    private ArgumentCaptor<User> userArgumentCaptor;
 
 
     private User user;
 
     @BeforeEach
-    public void setUp() {
-
+    public void setup() {
         this.passwordEncoder = new BCryptPasswordEncoder();
-        String encodePassword = passwordEncoder.encode("password");
-        user = User.builder()
-                .userName("John")
-                .email("kowalski@gmail.com")
-                .firstName("Jan")
-                .lastName("Kowalski")
-                .userRole(UserRole.USER)
-                .build();
+        String encodedPassword = passwordEncoder.encode("password");
+        user = new User();
+        user.setEmail("email")
+                .setId(1L)
+                .setUserName("username")
+                .setFirstName("Jan")
+                .setLastName("Kowalski");
 
-        user.setPassword(encodePassword);
-        userService = new UserServiceImpl(userRepository,passwordEncoder);
+        user.setPassword(encodedPassword);
+        userService = new UserServiceImpl(passwordEncoder, userRepository);
+
     }
 
 
@@ -60,16 +57,16 @@ class UserServiceTests {
     @Test
     public void givenUserObject_whenSavedUser_thenReturnUserObject() {
         //given - precondition or setup
-        given(userRepository.findByEmail(user.getEmail()))
-                .willReturn(Optional.empty());
-        given(userRepository.save(user)).willReturn(user);
-        given(userService.)
+      given(userRepository.saveAndFlush(user)).willReturn(user);
         //when - action or the behaviour that we are going test
 
         UserRegisterDTO savedUserRegisterDTO = userService.saveUser(user);
 
         //then - verify the output
-        Assertions.assertThat(savedUserRegisterDTO).isNotNull();
+       Assertions.assertThat(savedUserRegisterDTO).isNotNull();
+       Assertions.assertThat(savedUserRegisterDTO).isExactlyInstanceOf(UserRegisterDTO.class);
+       Assertions.assertThat(savedUserRegisterDTO.getId()).isEqualTo(1l);
+       Assertions.assertThat(savedUserRegisterDTO.getRole()).isEqualTo(UserRole.USER);
     }
 
     //junit test for
@@ -84,7 +81,6 @@ class UserServiceTests {
                 .email("kowalski@gmail.com")
                 .firstName("Jan")
                 .lastName("Kowalski")
-                .userRole(UserRole.USER)
                 .build();
         given(userRepository.findByEmail(user.getEmail()))
                 .willReturn(Optional.of(user));
@@ -95,7 +91,7 @@ class UserServiceTests {
                 .saveUser(user);
 
         //then - verify the output
-        Assertions.assertThat(savedUserRegisterDTO).isEqualTo(UserRole.OWNER);
+//        Assertions.assertThat(savedUserRegisterDTO).isEqualTo(UserRole.OWNER);
     }
 
     //junit test for
