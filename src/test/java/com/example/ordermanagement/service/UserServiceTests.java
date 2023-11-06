@@ -77,6 +77,64 @@ class UserServiceTests {
     }
 
     //junit test for
+    @DisplayName("Junit test for searchUser method which User is Exist")
+    @Test
+    public void givenUserName_whenSearchUserByName_thenReturnUserObject() {
+        //given - precondition or setup
+        String name = "Jan";
+        given(userRepository.findByUserName(name)).willReturn(Optional.of(user));
+        //when - action or the behaviour that we are going test
+        Optional<User> savedUser = userService.searchUserName(name);
+
+        //then - verify the output
+        assertThat(savedUser).isNotNull();
+        assertThat(savedUser.get().getFirstName()).isEqualTo(name);
+    }
+
+    @DisplayName("Junit test for searchUser method which User is Not Exist")
+    @Test
+    public void givenUserName_whenSearchUserByName_thenReturnOptionalEmpty() {
+        //given - precondition or setup
+        String name = "Jan";
+        given(userRepository.findByUserName(name)).willReturn(Optional.empty());
+        //when - action or the behaviour that we are going test
+        Optional<User> savedUser = userService.searchUserName(name);
+
+        //then - verify the output
+        assertThat(savedUser).isEmpty();
+
+
+    }
+
+    //junit test for
+    @DisplayName("Junit test for searchByEmail method which User is Exist")
+    @Test
+    public void givenUserEmail_whenSearchUserByEmail_thenReturnObjectUser() {
+        //given - precondition or setup
+        String email = "email";
+        given(userRepository.findByEmail(email)).willReturn(Optional.of(user));
+        //when - action or the behaviour that we are going test
+        Optional<User> savedUser = userService.searchUserEmail(email);
+
+        //then - verify the output
+        assertThat(savedUser).isNotNull();
+        assertThat(savedUser.get().getEmail()).isEqualTo(email);
+    }
+    @DisplayName("Junit test for searchByEmail method which User is NotExist")
+    @Test
+    public void givenUserEmail_whenSearchUserByEmail_thenReturnOptionalEmpty() {
+        //given - precondition or setup
+        String email = "email";
+        given(userRepository.findByEmail(email)).willReturn(Optional.empty());
+        //when - action or the behaviour that we are going test
+        Optional<User> savedUser = userService.searchUserEmail(email);
+
+        //then - verify the output
+        assertThat(savedUser).isEmpty();
+
+    }
+
+    //junit test for
     @DisplayName("Junit test for savedUser method which set Role")
     @Test
     public void givenUserNameAndPassword_whenSavedUser_thenReturnRole() {
@@ -168,8 +226,6 @@ class UserServiceTests {
         UserDetailsDTO userDetailsDTO = userService.updateById(UserDetailsDTO.mapToDto(user1.get()), 1l);
 
         User updatedUser = UserDetailsDTO.mapToModel(userDetailsDTO);
-
-
         //then - verify the output
 
         assertThat(updatedUser).isNotNull();
@@ -178,20 +234,21 @@ class UserServiceTests {
 
 
     }
+
     //junit test for
     @DisplayName("Junit test for deleteUser method")
-         @Test
-         public void givenUserId_whenDeleteUser_thenNothing(){
-            //given - precondition or setup
-             long userId = 1l;
-             willDoNothing().given(userRepository).deleteById(1l);
+    @Test
+    public void givenUserId_whenDeleteUser_thenNothing() {
+        //given - precondition or setup
+        long userId = 1l;
+        willDoNothing().given(userRepository).deleteById(1l);
 
-             //when - action or the behaviour that we are going test
-             userService.delete(1l);
+        //when - action or the behaviour that we are going test
+        userService.delete(1l);
 
-             //then - verify the output
-             verify(userRepository,times(1)).deleteById(userId);
-         }
+        //then - verify the output
+        verify(userRepository, times(1)).deleteById(userId);
+    }
 
 
 }
