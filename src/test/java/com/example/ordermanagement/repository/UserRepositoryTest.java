@@ -181,7 +181,7 @@ class UserRepositoryTest {
     //junit test for
     @DisplayName("Junit test for customs query using native SQL with index")
     @Test
-    public void given_when_then() {
+    public void givenFristNameAndLastName_whenFindByNativeNameSQL_thenReturnUserObject() {
         //given - precondition or setup
         userRepository.save(user);
         //when - action or the behaviour that we are going test

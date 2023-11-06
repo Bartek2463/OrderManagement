@@ -16,23 +16,28 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
- @Autowired
-    private UserRepository userRepository;
- @Autowired
- private PasswordEncoder passwordEncoder;
 
+    private final PasswordEncoder passwordEncoder;
+
+    private final UserRepository userRepository;
+
+
+    public UserServiceImpl(PasswordEncoder passwordEncoder, UserRepository userRepository) {
+        this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
+    }
 
     @Override
-    public UserRegisterDTO saveUser(User users) {
+    public UserRegisterDTO saveUser(User user) {
 
-        if (users.getUserName().equals("My business") && users.getPassword().equals("password")){
-            users.setUserRole(UserRole.OWNER);
+        if (user.getUserName().equals("My business") && user.getPassword().equals("password")){
+            user.setUserRole(UserRole.OWNER);
         }else {
-            users.setUserRole(UserRole.USER);
+            user.setUserRole(UserRole.USER);
         }
 
-        users.setPassword(passwordEncoder.encode(users.getPassword()));
-        User savedUser = userRepository.saveAndFlush(users);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        User savedUser = userRepository.saveAndFlush(user);
         return UserRegisterDTO.mapToDto(savedUser);
     }
 
