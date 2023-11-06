@@ -8,6 +8,7 @@ import com.example.ordermanagement.model.User;
 import com.example.ordermanagement.model.UserRole;
 import com.example.ordermanagement.repository.UserRepository;
 
+import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +26,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.when;
+import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTests {
@@ -149,20 +151,47 @@ class UserServiceTests {
     }
 
     //junit test for
+    @DisplayName("Junit test for update User method")
     @Test
     public void givenUserObject_whenUpdateUser_thenReturnUpdateObjectUser() {
         //given - precondition or setup
-        given(userRepository.save(user)).willReturn(user);
-        user.setUserName("Counter");
-        user.setFirstName("Morlin");
-//        UserDetailsDTO userDetailsDTO = new UserDetailsDTO();
-//        //when - action or the behaviour that we are going test
-//        UserDetailsDTO userDetailsDTO1 = userService.updateById(userDetailsDTO, user.getId());
+
+        given(userRepository.findById(1l)).willReturn(Optional.of(user));
+
+        Optional<User> user1 = userService.serachById(1l);
+
+        //when - action or the behaviour that we are going test
+
+        user1.get().setFirstName("Marek");
+        user1.get().setEmail("marek@gmail.com");
+        given(userRepository.save(user1.get())).willReturn(user1.get());
+        UserDetailsDTO userDetailsDTO = userService.updateById(UserDetailsDTO.mapToDto(user1.get()), 1l);
+
+        User updatedUser = UserDetailsDTO.mapToModel(userDetailsDTO);
 
 
         //then - verify the output
-        assertThat(user).isNotNull();
+
+        assertThat(updatedUser).isNotNull();
+        assertThat(updatedUser.getFirstName()).isEqualTo("Marek");
+        assertThat(updatedUser.getEmail()).isEqualTo("marek@gmail.com");
+
+
     }
+    //junit test for
+    @DisplayName("Junit test for deleteUser method")
+         @Test
+         public void givenUserId_whenDeleteUser_thenNothing(){
+            //given - precondition or setup
+             long userId = 1l;
+             willDoNothing().given(userRepository).deleteById(1l);
+
+             //when - action or the behaviour that we are going test
+             userService.delete(1l);
+
+             //then - verify the output
+             verify(userRepository,times(1)).deleteById(userId);
+         }
 
 
 }
