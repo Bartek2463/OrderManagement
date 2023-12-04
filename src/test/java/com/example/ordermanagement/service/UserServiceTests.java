@@ -2,10 +2,22 @@ package com.example.ordermanagement.service;
 
 import com.example.ordermanagement.model.DTO.UserDetailsDTO;
 import com.example.ordermanagement.model.DTO.UserListDTO;
+<<<<<<< HEAD
 import com.example.ordermanagement.model.DTO.UserRegisterDTO;
 import com.example.ordermanagement.model.user.User;
 import com.example.ordermanagement.model.user.UserRole;
 import com.example.ordermanagement.repository.UserRepository;
+=======
+import com.example.ordermanagement.model.DTO.UserLoginDTO;
+import com.example.ordermanagement.model.DTO.UserRegisterDTO;
+import com.example.ordermanagement.model.User;
+import com.example.ordermanagement.model.UserRole;
+import com.example.ordermanagement.repository.UserRepository;
+
+import static org.assertj.core.api.Assertions.as;
+import static org.assertj.core.api.Assertions.assertThat;
+
+>>>>>>> origin/master
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,11 +32,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+<<<<<<< HEAD
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+=======
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.*;
+>>>>>>> origin/master
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTests {
