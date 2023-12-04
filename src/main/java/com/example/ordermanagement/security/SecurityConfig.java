@@ -1,6 +1,6 @@
 package com.example.ordermanagement.security;
 
-import com.example.ordermanagement.model.UserRole;
+import com.example.ordermanagement.model.user.UserRole;
 import com.example.ordermanagement.security.jwt.JwtAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -41,9 +41,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/"))
                 .authorizeRequests()
                 .antMatchers("**/myprofile/**").hasAnyRole(UserRole.USER.name(), UserRole.OWNER.name())
-                //.antMatchers("/api/pets/**").hasRole(UserRole.ADMIN.name())
-                //.antMatchers("/api/appointments/**").hasRole(UserRole.ADMIN.name())
-                //.antMatchers("/api/owners/**").hasRole(UserRole.ADMIN.name())
                 .and()
                 .httpBasic();
 
@@ -53,8 +50,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        return bCryptPasswordEncoder;
     }
+
+
 
     @Bean
     public JwtAuthorizationFilter jwtAuthorizationFilter() {

@@ -1,6 +1,6 @@
 package com.example.ordermanagement.model.DTO;
 
-import com.example.ordermanagement.model.User;
+import com.example.ordermanagement.model.user.User;
 import lombok.*;
 import lombok.experimental.Accessors;
 

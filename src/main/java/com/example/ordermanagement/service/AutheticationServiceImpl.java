@@ -1,8 +1,8 @@
 package com.example.ordermanagement.service;
 
 import com.example.ordermanagement.model.DTO.UserLoginDTO;
-import com.example.ordermanagement.model.UserRole;
-import com.example.ordermanagement.model.User;
+import com.example.ordermanagement.model.user.UserRole;
+import com.example.ordermanagement.model.user.User;
 import com.example.ordermanagement.security.UserPrinciple;
 import com.example.ordermanagement.security.jwt.JwtProvider;
 import org.springframework.beans.factory.annotation.Autowired;

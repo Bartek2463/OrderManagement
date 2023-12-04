@@ -1,6 +1,6 @@
 package com.example.ordermanagement.security;
 
-import com.example.ordermanagement.model.User;
+import com.example.ordermanagement.model.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

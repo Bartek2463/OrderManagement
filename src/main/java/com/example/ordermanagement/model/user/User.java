@@ -1,26 +1,32 @@
-package com.example.ordermanagement.model;
+package com.example.ordermanagement.model.user;
 
 
+import com.example.ordermanagement.model.order.Order;
 import lombok.*;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-@NoArgsConstructor(force = true)
+@NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
-//@Table(name = "User",uniqueConstraints = {
-//        @UniqueConstraint(columnNames = {"user_name"}),
-//        @UniqueConstraint(columnNames ={"email"})
-//
-//
-//})
-@Accessors(chain = true,fluent = false)
+@Table(name = "User", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"user_name"}),
+        @UniqueConstraint(columnNames = {"email"})
+
+
+})
+@Accessors(chain = true, fluent = false)
 @Builder
 @ToString
+
 public class User {
 
 
@@ -52,5 +58,8 @@ public class User {
     @Transient
     private String token;
 
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
+    @ToString.Exclude
+    List<Order> orders = new ArrayList<>();
 
 }

@@ -1,7 +1,7 @@
 package com.example.ordermanagement.repository;
 
-import com.example.ordermanagement.model.User;
-import com.example.ordermanagement.model.UserRole;
+import com.example.ordermanagement.model.user.User;
+import com.example.ordermanagement.model.user.UserRole;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -148,20 +148,49 @@ class UserRepositoryTest {
 
     //junit test for
     @DisplayName("JUnit test for custom query using JPQL with Named params")
-         @Test
-         public void givenFirstNameAndLastName_whenfindByJPQLNamesParams_then(){
-            //given - precondition or setup
+    @Test
+    public void givenFirstNameAndLastName_whenFindByJPQLNamesParams_then() {
+        //given - precondition or setup
 
-             userRepository.save(user);
-             String firstName = "Jan";
-             String lastName = "Kowalski";
+        userRepository.save(user);
+        String firstName = "Jan";
+        String lastName = "Kowalski";
 
-             //when - action or the behaviour that we are going test
+        //when - action or the behaviour that we are going test
 
-             User savedUser = userRepository.findByJPQLNamesParams(firstName, lastName);
-             //then - verify the output
-             assertThat(savedUser).isNotNull();
-         }
+        User savedUser = userRepository.findByJPQLNamesParams(firstName, lastName);
+        //then - verify the output
+        assertThat(savedUser).isNotNull();
+    }
+
+    //junit test for customs query using native SQL with index
+    @DisplayName("JUnit test for customs query using native SQL with index")
+    @Test
+    public void givenFirstNameAndLastName_whenFindByNativeSQL_thenReturnUserObject() {
+        //given - precondition or setup
+        userRepository.save(user);
+        //when - action or the behaviour that we are going test
+
+        User savedUser = userRepository.findByNativeSQL(user.getFirstName(), user.getLastName());
+
+        //then - verify the output
+        assertThat(savedUser).isNotNull();
+
+    }
+
+    //junit test for
+    @DisplayName("Junit test for customs query using native SQL with index")
+    @Test
+    public void givenFristNameAndLastName_whenFindByNativeNameSQL_thenReturnUserObject() {
+        //given - precondition or setup
+        userRepository.save(user);
+        //when - action or the behaviour that we are going test
+
+        User savedUser = userRepository.findByNativeSQLNamed(user.getFirstName(), user.getLastName());
+        //then - verify the output
+        assertThat(savedUser).isNotNull();
+    }
+
 
 }
 

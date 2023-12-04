@@ -1,6 +1,6 @@
 package com.example.ordermanagement.model;
 
-import org.apache.catalina.User;
+import com.example.ordermanagement.model.user.UserRole;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 

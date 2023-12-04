@@ -1,6 +1,6 @@
 package com.example.ordermanagement.repository;
 
-import com.example.ordermanagement.model.User;
+import com.example.ordermanagement.model.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,5 +18,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
    User findByJPQL(String firstName, String lastName);
 
    @Query("select u from User u where u.firstName=:firstName and u.lastName=:lastName")
-   User findByJPQLNamesParams(@Param("firstName")String firstName,@Param("lastName") String lastName);
+   User findByJPQLNamesParams(@Param("firstName")String firstName, @Param("lastName") String lastName);
+
+   @Query(value = "select * from user u where u.first_name=?1 and u.last_name=?2",nativeQuery = true)
+   User findByNativeSQL(String firstName, String lastName);
+
+   @Query(value = "select * from user u where u.first_name=?1 and u.last_name=?2 ",nativeQuery = true)
+   User findByNativeSQLNamed(String firstName, String lastName);
 }

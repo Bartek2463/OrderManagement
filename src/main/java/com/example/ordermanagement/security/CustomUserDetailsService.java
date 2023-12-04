@@ -2,7 +2,7 @@ package com.example.ordermanagement.security;
 
 
 import com.example.ordermanagement.exception.ElementNotFoundException;
-import com.example.ordermanagement.model.User;
+import com.example.ordermanagement.model.user.User;
 import com.example.ordermanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

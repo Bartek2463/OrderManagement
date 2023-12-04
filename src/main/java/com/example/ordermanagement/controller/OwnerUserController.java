@@ -2,13 +2,12 @@ package com.example.ordermanagement.controller;
 
 import com.example.ordermanagement.deleteException.SuccesseDelete;
 import com.example.ordermanagement.deleteException.SuccesseDeleteHandler;
-import com.example.ordermanagement.exception.ElementNotFoundException;
-import com.example.ordermanagement.exception.EmptyListException;
-import com.example.ordermanagement.exception.UserRestExceptionHandler;
+import com.example.ordermanagement.exception.*;
 import com.example.ordermanagement.model.DTO.UserDetailsDTO;
 import com.example.ordermanagement.model.DTO.UserListDTO;
-import com.example.ordermanagement.model.User;
-import com.example.ordermanagement.repository.UserRepository;
+import com.example.ordermanagement.model.DTO.UserLoginDTO;
+import com.example.ordermanagement.model.user.User;
+import com.example.ordermanagement.service.AutheticationService;
 import com.example.ordermanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,13 +25,39 @@ public class OwnerUserController {
     UserService userService;
 
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
     UserRestExceptionHandler exceptionHandler;
 
     @Autowired
     SuccesseDeleteHandler deleteHandler;
+    @Autowired
+    private AutheticationService autheticationService;
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody User users) {
+
+
+        if (users.getUserName() == null || users.getPassword() == null || users.getLastName() == null || users.getFirstName() == null ||
+                users.getEmail() == null) {
+            return exceptionHandler.handleException(HttpStatus.BAD_REQUEST, new BadRequestException());
+        }
+
+        if (userService.searchUserName(users.getUserName()).isPresent() || userService.searchUserEmail(users.getEmail()).isPresent()) {
+            return exceptionHandler.handleException(HttpStatus.CONFLICT, new ElementAlreadyExistsException("User"));
+        }
+
+
+        return new ResponseEntity<>(userService.saveUser(users), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody UserLoginDTO userLoginDTO) {
+        Optional<User> usersOpt = userService.searchUserName(userLoginDTO.getUserName());
+
+        if (!usersOpt.isPresent()) {
+            return exceptionHandler.handleException(HttpStatus.BAD_REQUEST, new BadCredentialsException("Bad credentials provided"));
+        }
+        return new ResponseEntity<>(autheticationService.signInAndReturnJWT(UserLoginDTO.mapToModel(userLoginDTO)),HttpStatus.OK);
+        //todo
+    }
 
 
     @GetMapping("/owners")
