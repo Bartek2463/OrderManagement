@@ -32,10 +32,14 @@ public class UserServiceImpl implements UserService {
 
         if (user.getUserName().equals("Surprise Egg") && user.getPassword().equals("password")){
             user.setUserRole(UserRole.ADMIN);
-        }
-            // TODO: 05.12.2023 NIP NUMBER FOR OWNER
-            user.setUserRole(UserRole.USER);
+        }else if (user.getNIP().isEmpty() && !user.getUserName().equals("Surprise Egg")&&!user.getPassword().equals("password")){
 
+            user.setUserRole(UserRole.USER);
+            // TODO: 05.12.2023 NIP NUMBER FOR OWNER
+        }else {
+
+            user.setUserRole(UserRole.OWNER);
+        }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         User savedUser = userRepository.saveAndFlush(user);
