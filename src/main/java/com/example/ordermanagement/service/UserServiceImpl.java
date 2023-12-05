@@ -6,6 +6,7 @@ import com.example.ordermanagement.model.DTO.UserRegisterDTO;
 import com.example.ordermanagement.model.user.UserRole;
 import com.example.ordermanagement.model.user.User;
 import com.example.ordermanagement.repository.UserRepository;
+import com.sun.xml.bind.v2.TODO;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,11 +30,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserRegisterDTO saveUser(User user) {
 
-        if (user.getUserName().equals("My business") && user.getPassword().equals("password")){
-            user.setUserRole(UserRole.OWNER);
-        }else {
-            user.setUserRole(UserRole.USER);
+        if (user.getUserName().equals("Surprise Egg") && user.getPassword().equals("password")){
+            user.setUserRole(UserRole.ADMIN);
         }
+            // TODO: 05.12.2023 NIP NUMBER FOR OWNER
+            user.setUserRole(UserRole.USER);
+
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         User savedUser = userRepository.saveAndFlush(user);

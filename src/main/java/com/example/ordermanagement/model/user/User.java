@@ -1,28 +1,24 @@
 package com.example.ordermanagement.model.user;
 
 
-import com.example.ordermanagement.model.order.Order;
+import com.example.ordermanagement.model.order.JobOrder;
 import lombok.*;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
+
+
 @Table(name = "User", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"user_name"}),
-        @UniqueConstraint(columnNames = {"email"})
-
-
-})
+        @UniqueConstraint(columnNames = {"email"})})
 @Accessors(chain = true, fluent = false)
 @Builder
 @ToString
@@ -33,6 +29,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "user_name", nullable = false)
     @NonNull
     private String userName;
@@ -53,13 +50,16 @@ public class User {
 
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "role")
     private UserRole userRole;
 
     @Transient
     private String token;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
+    @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE},
+            mappedBy = "user", fetch = FetchType.LAZY)
     @ToString.Exclude
-    List<Order> orders = new ArrayList<>();
+    private List<JobOrder> ordersList;
+
 
 }
