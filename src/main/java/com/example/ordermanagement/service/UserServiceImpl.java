@@ -35,7 +35,6 @@ public class UserServiceImpl implements UserService {
         }else if (user.getNIP().isEmpty() && !user.getUserName().equals("Surprise Egg")&&!user.getPassword().equals("password")){
 
             user.setUserRole(UserRole.USER);
-            // TODO: 05.12.2023 NIP NUMBER FOR OWNER
         }else {
 
             user.setUserRole(UserRole.OWNER);

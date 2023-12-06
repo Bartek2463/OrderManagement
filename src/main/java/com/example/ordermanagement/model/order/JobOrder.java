@@ -19,11 +19,11 @@ public class JobOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-//    @Column(name = "price_job_order",nullable = false)
-//    @NonNull
+    @Column(name = "price_job_order",nullable = false)
+    @NonNull
     private BigDecimal price;
-//    @Column(name = "date_job_order",nullable = false)
-//    @NonNull
+    @Column(name = "date_job_order",nullable = false)
+    @NonNull
     private Date dateJobOrder;
 
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})

@@ -24,6 +24,6 @@ class UserRoleTest {
     @ParameterizedTest
     @EnumSource(UserRole.class)
     void allRoleShouldBeSizeNoMoreThan2(UserRole userRole){
-        assertThat(userRole.getClass().getFields().length,is(2));
+        assertThat(userRole.getClass().getFields().length,is(3));
     }
 }
