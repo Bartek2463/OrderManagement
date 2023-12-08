@@ -6,7 +6,6 @@ import com.example.ordermanagement.model.DTO.UserRegisterDTO;
 import com.example.ordermanagement.model.user.UserRole;
 import com.example.ordermanagement.model.user.User;
 import com.example.ordermanagement.repository.UserRepository;
-import com.sun.xml.bind.v2.TODO;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -56,7 +55,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> serachById(Long ownerId) {
+    public Optional<User> searchById(Long ownerId) {
         return userRepository.findById(ownerId);
     }
 
@@ -69,7 +68,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDetailsDTO updateById(UserDetailsDTO detailsDto, Long id) {
 
-        Optional<User> editOptional = serachById(id);
+        Optional<User> editOptional = searchById(id);
         if (editOptional.isEmpty()) {
             return null;
         }

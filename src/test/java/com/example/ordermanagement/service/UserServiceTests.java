@@ -205,7 +205,7 @@ class UserServiceTests {
         //given - precondition or setup
         given(userRepository.findById(1L)).willReturn(Optional.of(user));
         //when - action or the behaviour that we are going test
-        Optional<User> savedUser = userService.serachById(user.getId());
+        Optional<User> savedUser = userService.searchById(user.getId());
 
         //then - verify the output
         assertThat(savedUser).isNotNull();
@@ -220,7 +220,7 @@ class UserServiceTests {
 
         given(userRepository.findById(1l)).willReturn(Optional.of(user));
 
-        Optional<User> user1 = userService.serachById(1l);
+        Optional<User> user1 = userService.searchById(1l);
 
         //when - action or the behaviour that we are going test
 

@@ -19,7 +19,7 @@ class UserRoleTest {
     @ParameterizedTest
     @EnumSource(UserRole.class)
     void allRoleStatusShouldBeLongerThan1Chars(UserRole userRole){
-        assertThat(userRole.toString().length(),greaterThanOrEqualTo(2));
+        assertThat(userRole.toString().length(),greaterThanOrEqualTo(3));
     }
     @ParameterizedTest
     @EnumSource(UserRole.class)

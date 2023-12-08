@@ -85,7 +85,7 @@ public class OwnerUserController {
 
     @GetMapping("/owners/{ownerId}")
     public ResponseEntity<?> getOwnerByid(@PathVariable("ownerId") Long id) {
-        Optional<User> usersOpt = userService.serachById(id);
+        Optional<User> usersOpt = userService.searchById(id);
         if (usersOpt.isEmpty()) {
             return exceptionHandler.handleException(
                     HttpStatus.NOT_FOUND, new ElementNotFoundException("User", "ID", id.toString()));
@@ -97,7 +97,7 @@ public class OwnerUserController {
 
     @DeleteMapping("/owners/{ownerId}")
     public ResponseEntity<?> deleteByid(@PathVariable("ownerId") Long id) {
-        Optional<User> usersOpt = userService.serachById(id);
+        Optional<User> usersOpt = userService.searchById(id);
         if (usersOpt.isEmpty()) {
             return exceptionHandler.handleException(
                     HttpStatus.NOT_FOUND, new ElementNotFoundException("User", "ID", id.toString()));
