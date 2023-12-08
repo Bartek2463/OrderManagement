@@ -160,4 +160,53 @@ class OrderRepositoryTest {
         Assertions.assertThat(jobOrderOptional).isEmpty();
     }
 
+    //junit test for
+    @DisplayName("Junit test for custom query using JPQL Named params for specific Query  Price And Date")
+    @Test
+    public void givenPriceAndDate_whenfindByJPQLPriceAndDateOrder_thenReturnListJobOrders() {
+        //given - precondition or setup
+        jobOrderRepository.save(jobOrder);
+        BigDecimal price = BigDecimal.valueOf(20);
+        LocalDate dateJobOrder = LocalDate.of(2020, 12, 02);
+
+        //when - action or the behaviour that we are going test
+        Optional<JobOrder> byUserNameList = jobOrderRepository.findByJPQLPriceAndDateOrder(price, dateJobOrder);
+        //then - verify the output
+        Assertions.assertThat(byUserNameList).isNotEmpty();
+        Assertions.assertThat(byUserNameList.stream().count()).isEqualTo(1);
+    }
+
+    @DisplayName("Junit test for custom query usnig JPQL Named params for specific Query NIP and UserName  ")
+    //junit test for
+    @Test
+    public void givenNIPAndUserName_whenfindByJPQLNIPAndUserName_thenReturnListJobOrders() {
+        //given - precondition or setup
+
+        User user = User.builder()
+                .userName("John")
+                .password("password")
+                .email("kowalski@gmail.com")
+                .firstName("Jan")
+                .lastName("Kowalski")
+                .NIP("123456789")
+                .ordersList(List.of())
+                .build();
+        JobOrder DBjobOrder = JobOrder.builder()
+                .dateJobOrder(LocalDate.of(2020, 12, 02))
+                .price(BigDecimal.valueOf(20))
+                .user(user)
+                .build();
+
+        jobOrderRepository.save(DBjobOrder);
+        String NIP = "123456789";
+        String userName = "John";
+        //when - action or the behaviour that we are going test
+        Optional<JobOrder> byJPQLNIPAndUserName = jobOrderRepository.findByJPQLNIPAndUserName(NIP, userName);
+
+        //then - verify the output
+        Assertions.assertThat(byJPQLNIPAndUserName).isNotEmpty();
+        Assertions.assertThat(byJPQLNIPAndUserName.stream().count()).isEqualTo(1);
+        Assertions.assertThat(byJPQLNIPAndUserName.get().getUser().getUserRole()).isEqualTo(UserRole.OWNER);
+    }
+
 }
