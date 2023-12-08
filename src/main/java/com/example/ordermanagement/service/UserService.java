@@ -13,7 +13,7 @@ public interface UserService {
     Optional<User> searchUserName(String name);
     Optional<User> searchUserEmail(String email);
 
-    Optional<User> serachById(Long ownerId);
+    Optional<User> searchById(Long ownerId);
 
     List<UserListDTO> getAllUsers();
 
