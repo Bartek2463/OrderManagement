@@ -1,8 +1,8 @@
 package com.example.ordermanagement.service;
 
-import com.example.ordermanagement.model.DTO.UserDetailsDTO;
-import com.example.ordermanagement.model.DTO.UserListDTO;
-import com.example.ordermanagement.model.DTO.UserRegisterDTO;
+import com.example.ordermanagement.model.user.dto.UserDetailsDTO;
+import com.example.ordermanagement.model.user.dto.UserListDTO;
+import com.example.ordermanagement.model.user.dto.UserRegisterDTO;
 import com.example.ordermanagement.model.user.User;
 
 import java.util.List;

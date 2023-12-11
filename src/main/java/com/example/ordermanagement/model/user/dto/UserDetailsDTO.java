@@ -1,4 +1,4 @@
-package com.example.ordermanagement.model.DTO;
+package com.example.ordermanagement.model.user.dto;
 
 import com.example.ordermanagement.model.user.User;
 import lombok.*;
