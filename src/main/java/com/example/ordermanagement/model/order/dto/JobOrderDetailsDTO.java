@@ -2,13 +2,13 @@ package com.example.ordermanagement.model.order.dto;
 
 import com.example.ordermanagement.model.order.JobOrder;
 import com.example.ordermanagement.model.user.User;
-import com.example.ordermanagement.model.user.dto.UserDetailsDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -17,14 +17,14 @@ import java.time.LocalDate;
 @Accessors(chain = true)
 public class JobOrderDetailsDTO {
 
-   private Long id;
+    private Long id;
     private BigDecimal price;
     private LocalDate dateJobOrder;
-    private  String description;
+    private String description;
     @JsonIgnore
     private User user;
 
-    public  static JobOrderDetailsDTO mapToDto(JobOrder jobOrder){
+    public static JobOrderDetailsDTO mapToDto(JobOrder jobOrder) {
         return new JobOrderDetailsDTO()
                 .setId(jobOrder.getId())
                 .setPrice(jobOrder.getPrice())
@@ -33,7 +33,7 @@ public class JobOrderDetailsDTO {
                 .setUser(jobOrder.getUser());
     }
 
-    public static JobOrder mapToModel(JobOrderDetailsDTO jobOrderDetailsDTO){
+    public static JobOrder mapToModel(JobOrderDetailsDTO jobOrderDetailsDTO) {
         return new JobOrder()
                 .setId(jobOrderDetailsDTO.getId())
                 .setPrice(jobOrderDetailsDTO.getPrice())

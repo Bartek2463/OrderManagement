@@ -7,16 +7,16 @@ import com.example.ordermanagement.model.order.dto.JobOrderDetailsDtoUP;
 import com.example.ordermanagement.model.order.dto.JobOrderListDTO;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 public interface JobOrderService {
 
-    JobOrderDetailsDTO saveJobOrder(JobOrder jobOrder);
+    JobOrderDetailsDTO saveJobOrder(JobOrderDetailsDTO jobOrderDetailsDTO, Long id);
 
-    Optional<JobOrder> searchJobOrderDate(Date date);
-    Optional<JobOrder> searchJobOrderPrice(BigDecimal price);
+    Optional<JobOrderDetailsDTO> searchJobOrderDate(LocalDate localDate);
+    Optional<JobOrderDetailsDTO> searchJobOrderPrice(BigDecimal price);
 
     Optional<JobOrder> searchById(Long id);
     List<JobOrderListDTO> getAllJobOrders();
