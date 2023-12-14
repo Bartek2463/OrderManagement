@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public interface JobOrderService {
 
-    JobOrderDetailsDTO saveJobOrder(JobOrderDetailsDTO jobOrderDetailsDTO, Long id);
+    JobOrderDetailsDTO saveJobOrder(JobOrder jobOrder, Long id);
 
     Optional<JobOrderDetailsDTO> searchJobOrderDate(LocalDate localDate);
     Optional<JobOrderDetailsDTO> searchJobOrderPrice(BigDecimal price);

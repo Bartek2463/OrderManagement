@@ -23,30 +23,30 @@ public class JobOrderServiceImpl implements JobOrderService {
     @Autowired
     private UserService userService;
     @Override
-    public JobOrderDetailsDTO saveJobOrder(JobOrderDetailsDTO jobOrderDetailsDTO, Long id) {
+    public JobOrderDetailsDTO saveJobOrder(JobOrder jobOrder, Long id) {
 
         Optional<User> optionalUser = userService.searchById(id);
         User user = optionalUser.orElseThrow(() -> new ElementNotFoundException("User", "id", id.toString()));
-        jobOrderDetailsDTO.setUser(user);
-        JobOrder jobOrder = jobOrderRepository.saveAndFlush(JobOrderDetailsDTO.mapToModel(jobOrderDetailsDTO));
-        return JobOrderDetailsDTO.mapToDto(jobOrder);
+        JobOrder setUserJobOrder = jobOrder.setUser(user);
+        return JobOrderDetailsDTO.mapToDto(setUserJobOrder);
     }
 
     @Override
     public Optional<JobOrderDetailsDTO> searchJobOrderDate(LocalDate localDate) {
         JobOrder jobOrderDatailsDTO = jobOrderRepository.findByDateJobOrder(localDate).orElseThrow(() -> new ElementNotFoundException("JobOrder", "localDate", localDate.toString()));
-        return
+        return Optional.empty();
 
     }
 
     @Override
     public Optional<JobOrderDetailsDTO> searchJobOrderPrice(BigDecimal price) {
-        return ;
+        return Optional.empty() ;
     }
 
     @Override
     public Optional<JobOrder> searchById(Long id) {
-        return Optional.empty();
+        Optional<JobOrder> jobOrderOptional = jobOrderRepository.findById(id);
+        return jobOrderOptional;
     }
 
     @Override
