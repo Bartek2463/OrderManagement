@@ -23,12 +23,10 @@ public class JobOrderServiceImpl implements JobOrderService {
     @Autowired
     private UserService userService;
     @Override
-    public JobOrderDetailsDTO saveJobOrder(JobOrder jobOrder, Long id) {
+    public JobOrderDetailsDTO saveJobOrder(JobOrder jobOrder,Long id) {
 
-        Optional<User> optionalUser = userService.searchById(id);
-        User user = optionalUser.orElseThrow(() -> new ElementNotFoundException("User", "id", id.toString()));
-        JobOrder setUserJobOrder = jobOrder.setUser(user);
-        return JobOrderDetailsDTO.mapToDto(setUserJobOrder);
+        JobOrder save = jobOrderRepository.save(jobOrder);
+        return JobOrderDetailsDTO.mapToDto(save);
     }
 
     @Override

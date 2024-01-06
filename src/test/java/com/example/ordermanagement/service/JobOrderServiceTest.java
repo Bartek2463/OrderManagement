@@ -33,12 +33,13 @@ class JobOrderServiceTest {
     @Mock
     private JobOrderRepository jobOrderRepository;
 
+
     @InjectMocks
     private UserServiceImpl userService;
     @InjectMocks
     private JobOrderServiceImpl jobOrderService;
 
-    private  User user;
+    private User user;
     private JobOrder jobOrder;
 
     @BeforeEach
@@ -60,23 +61,25 @@ class JobOrderServiceTest {
         jobOrder = new JobOrder();
         jobOrder.setId(1l)
                 .setPrice(BigDecimal.valueOf(150))
-                .setDateJobOrder(LocalDate.of(2022,02,12))
+                .setDateJobOrder(LocalDate.of(2022, 02, 12))
                 .setDescription("Order about car repair ")
                 .setUser(user);
     }
 
     //junit test for
-         @Test
-         public void givenJobOrderObject_whenSaveJobOrder_thenReturnJobOrderObject(){
-            //given - precondition or setup
-             BDDMockito.given(userRepository.saveAndFlush(user)).willReturn(user);
-             BDDMockito.given(jobOrderRepository.save(jobOrder)).willReturn(jobOrder);
-             //when - action or the behaviour that we are going test
+    @Test
+    public void givenJobOrderObject_whenSaveJobOrder_thenReturnJobOrderObject() {
+        //given - precondition or setup
 
-             Optional<User> user1 = userService.searchById(user.getId());
-             JobOrderDetailsDTO savedJobOrder = jobOrderService.saveJobOrder(jobOrder, user.getId());
+        BDDMockito.given(jobOrderRepository.save(jobOrder)).willReturn(jobOrder);
+//
 
-             //then - verify the output
-             Assertions.assertThat(savedJobOrder).isNotNull();
-         }
+//             //when - action or the behaviour that we are going test
+
+        JobOrderDetailsDTO jobOrderDetailsDTO = jobOrderService.saveJobOrder(jobOrder, user.getId());
+
+
+        //then - verify the output
+        Assertions.assertThat(jobOrderDetailsDTO).isNotNull();
+    }
 }
