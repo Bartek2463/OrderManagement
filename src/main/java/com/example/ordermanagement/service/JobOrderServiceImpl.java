@@ -1,11 +1,9 @@
 package com.example.ordermanagement.service;
 
-import com.example.ordermanagement.exception.ElementNotFoundException;
 import com.example.ordermanagement.model.order.JobOrder;
 import com.example.ordermanagement.model.order.dto.JobOrderDetailsDTO;
 import com.example.ordermanagement.model.order.dto.JobOrderDetailsDtoUP;
 import com.example.ordermanagement.model.order.dto.JobOrderListDTO;
-import com.example.ordermanagement.model.user.User;
 import com.example.ordermanagement.repository.JobOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,35 +28,41 @@ public class JobOrderServiceImpl implements JobOrderService {
     }
 
     @Override
-    public Optional<JobOrderDetailsDTO> searchJobOrderDate(LocalDate localDate) {
-        JobOrder jobOrderDatailsDTO = jobOrderRepository.findByDateJobOrder(localDate).orElseThrow(() -> new ElementNotFoundException("JobOrder", "localDate", localDate.toString()));
-        return Optional.empty();
-
+    public Optional<JobOrder> searchJobOrderDate(LocalDate localDate) {
+       return jobOrderRepository.findByDateJobOrder(localDate);
     }
 
     @Override
-    public Optional<JobOrderDetailsDTO> searchJobOrderPrice(BigDecimal price) {
-        return Optional.empty() ;
+    public Optional<JobOrder> searchJobOrderPrice(BigDecimal price) {
+        return jobOrderRepository.findByPrice(price);
     }
 
     @Override
     public Optional<JobOrder> searchById(Long id) {
-        Optional<JobOrder> jobOrderOptional = jobOrderRepository.findById(id);
-        return jobOrderOptional;
+      return   jobOrderRepository.findById(id);
     }
 
     @Override
     public List<JobOrderListDTO> getAllJobOrders() {
-        return null;
+        List<JobOrder> allJobs = jobOrderRepository.findAll();
+      return JobOrderListDTO.mapToDto(allJobs);
     }
 
     @Override
     public JobOrderDetailsDtoUP updateByid(JobOrderDetailsDtoUP jobOrderDetailsDtoUp, Long id) {
-        return null;
+        Optional<JobOrder> jobOrder = searchById(id);
+         if (jobOrder.isEmpty()){
+             return null;
+         }
+         jobOrderDetailsDtoUp.setDateJobOrder(jobOrderDetailsDtoUp.getDateJobOrder());
+         jobOrderDetailsDtoUp.setPrice(jobOrderDetailsDtoUp.getPrice());
+         jobOrderDetailsDtoUp.setDescription(jobOrderDetailsDtoUp.getDescription());
+        JobOrder saveEditJobOrder = jobOrderRepository.save(jobOrder.get());
+        return JobOrderDetailsDtoUP.mapToDto(saveEditJobOrder);
     }
 
     @Override
     public void delete(Long jobId) {
-
+     jobOrderRepository.deleteById(jobId);
     }
 }

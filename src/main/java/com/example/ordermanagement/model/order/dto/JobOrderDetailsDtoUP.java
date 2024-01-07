@@ -20,12 +20,11 @@ public class JobOrderDetailsDtoUP {
     private String description;
 
 
-    public static JobOrderDetailsDTO mapToDto(JobOrder jobOrder) {
-        return new JobOrderDetailsDTO()
+    public static JobOrderDetailsDtoUP mapToDto(JobOrder jobOrder) {
+        return new JobOrderDetailsDtoUP()
                 .setPrice(jobOrder.getPrice())
                 .setDateJobOrder(jobOrder.getDateJobOrder())
-                .setDescription(jobOrder.getDescription())
-                .setUser(jobOrder.getUser());
+                .setDescription(jobOrder.getDescription());
     }
 
     public static JobOrder mapToModel(JobOrderDetailsDTO jobOrderDetailsDTO) {

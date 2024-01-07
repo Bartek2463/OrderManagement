@@ -3,7 +3,6 @@ package com.example.ordermanagement.service;
 import com.example.ordermanagement.model.order.JobOrder;
 import com.example.ordermanagement.model.order.dto.JobOrderDetailsDTO;
 import com.example.ordermanagement.model.user.User;
-import com.example.ordermanagement.model.user.dto.UserRegisterDTO;
 import com.example.ordermanagement.repository.JobOrderRepository;
 import com.example.ordermanagement.repository.UserRepository;
 import org.assertj.core.api.Assertions;
@@ -19,7 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 class JobOrderServiceTest {

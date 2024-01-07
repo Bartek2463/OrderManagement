@@ -15,8 +15,8 @@ public interface JobOrderService {
 
     JobOrderDetailsDTO saveJobOrder(JobOrder jobOrder,Long id);
 
-    Optional<JobOrderDetailsDTO> searchJobOrderDate(LocalDate localDate);
-    Optional<JobOrderDetailsDTO> searchJobOrderPrice(BigDecimal price);
+    Optional<JobOrder> searchJobOrderDate(LocalDate localDate);
+    Optional<JobOrder> searchJobOrderPrice(BigDecimal price);
 
     Optional<JobOrder> searchById(Long id);
     List<JobOrderListDTO> getAllJobOrders();
