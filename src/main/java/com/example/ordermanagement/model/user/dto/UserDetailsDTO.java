@@ -1,4 +1,4 @@
-package com.example.ordermanagement.model.DTO;
+package com.example.ordermanagement.model.user.dto;
 
 import com.example.ordermanagement.model.user.User;
 import lombok.*;
@@ -21,13 +21,13 @@ public class UserDetailsDTO {
     private String password;
 
 
-    public static UserDetailsDTO mapToDto(User users){
+    public static UserDetailsDTO mapToDto(User user){
         return new UserDetailsDTO()
-                .setUserName(users.getUserName())
-                .setEmail(users.getEmail())
-                .setFirstName(users.getFirstName())
-                .setLastName(users.getLastName())
-                .setPassword(users.getPassword());
+                .setUserName(user.getUserName())
+                .setEmail(user.getEmail())
+                .setFirstName(user.getFirstName())
+                .setLastName(user.getLastName())
+                .setPassword(user.getPassword());
     }
 
     public static User mapToModel(UserDetailsDTO detailsDto) {

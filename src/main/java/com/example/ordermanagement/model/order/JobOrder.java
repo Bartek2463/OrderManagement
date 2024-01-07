@@ -27,6 +27,9 @@ public class JobOrder {
     @Column(name = "date_job_order", nullable = false)
     @NonNull
     private LocalDate dateJobOrder;
+    @Column
+    @NonNull
+    private String description;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "user_id")

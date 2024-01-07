@@ -1,6 +1,6 @@
 package com.example.ordermanagement.service;
 
-import com.example.ordermanagement.model.DTO.UserLoginDTO;
+import com.example.ordermanagement.model.user.dto.UserLoginDTO;
 import com.example.ordermanagement.model.user.UserRole;
 import com.example.ordermanagement.model.user.User;
 import com.example.ordermanagement.security.UserPrinciple;
