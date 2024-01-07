@@ -5,8 +5,10 @@ import com.example.ordermanagement.model.order.dto.JobOrderDetailsDTO;
 import com.example.ordermanagement.model.user.User;
 import com.example.ordermanagement.repository.JobOrderRepository;
 import com.example.ordermanagement.repository.UserRepository;
+import lombok.Data;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
@@ -17,7 +19,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 class JobOrderServiceTest {
@@ -65,19 +69,36 @@ class JobOrderServiceTest {
     }
 
     //junit test for
+    @DisplayName("Junit test for saveJobOrder method which find User id")
     @Test
     public void givenJobOrderObject_whenSaveJobOrder_thenReturnJobOrderObject() {
         //given - precondition or setup
 
         BDDMockito.given(jobOrderRepository.save(jobOrder)).willReturn(jobOrder);
+        BDDMockito.given(userRepository.findById(1l)).willReturn(Optional.of(user));
 //
-
 //             //when - action or the behaviour that we are going test
-
         JobOrderDetailsDTO jobOrderDetailsDTO = jobOrderService.saveJobOrder(jobOrder, user.getId());
-
-
         //then - verify the output
         Assertions.assertThat(jobOrderDetailsDTO).isNotNull();
+        Assertions.assertThat(jobOrderDetailsDTO).isExactlyInstanceOf(JobOrderDetailsDTO.class);
+        Assertions.assertThat(jobOrderDetailsDTO.getId()).isEqualTo(1l);
+        Assertions.assertThat(jobOrderDetailsDTO.getPrice()).isEqualTo(BigDecimal.valueOf(150));
+    }
+
+
+    //junit test for
+    @Test
+    public void givenJobOrder_whenSearchOrderByDate_thenReturnJobOrderObject() {
+        //given - precondition or setup
+        LocalDate savedDateJobOrder = LocalDate.of(2022, 02, 12);
+        BDDMockito.given(jobOrderRepository.findByDateJobOrder(savedDateJobOrder)).willReturn(Optional.of(jobOrder));
+        //when - action or the behaviour that we are going test
+        Optional<JobOrder> saveJobOrder = jobOrderService.searchJobOrderDate(savedDateJobOrder);
+
+        //then - verify the output
+
+        Assertions.assertThat(savedDateJobOrder).isNotNull();
+        Assertions.assertThat(saveJobOrder.get()).isEqualTo(saveJobOrder);
     }
 }
