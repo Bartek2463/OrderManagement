@@ -88,6 +88,7 @@ class JobOrderServiceTest {
 
 
     //junit test for
+    @DisplayName(" Junit test for search Order By date method which find Date is Exist ")
     @Test
     public void givenJobOrder_whenSearchOrderByDate_thenReturnJobOrderObject() {
         //given - precondition or setup
@@ -98,7 +99,52 @@ class JobOrderServiceTest {
 
         //then - verify the output
 
-        Assertions.assertThat(savedDateJobOrder).isNotNull();
-        Assertions.assertThat(saveJobOrder.get()).isEqualTo(saveJobOrder);
+        Assertions.assertThat(saveJobOrder).isNotNull();
+        Assertions.assertThat(saveJobOrder.get()).isEqualTo(jobOrder);
     }
+
+    //junit test for
+    @DisplayName("Junit test for search Order By date method which find Date is Not exist")
+    @Test
+    public void givenJobOrder_whenSearchOrderByDate_thenReturnOptionalEmpty() {
+        //given - precondition or setup
+        LocalDate savedDate = LocalDate.of(2022, 02, 12);
+
+        BDDMockito.given(jobOrderRepository.findByDateJobOrder(savedDate)).willReturn(Optional.empty());
+        //when - action or the behaviour that we are going test
+        Optional<JobOrder> savedJobOrder = jobOrderService.searchJobOrderDate(savedDate);
+        //then - verify the output
+        Assertions.assertThat(savedJobOrder).isEmpty();
+    }
+
+    //junit test for
+    @DisplayName("Junit test for search Order By Price method which find Price is exist")
+    @Test
+    public void givenJobOrder_whenSearchOrderByPrice_thenReturnJobOrderObject() {
+        //given - precondition or setup
+        BigDecimal priceOrder = BigDecimal.valueOf(150);
+        BDDMockito.given(jobOrderRepository.findByPrice(priceOrder)).willReturn(Optional.of(jobOrder));
+        //when - action or the behaviour that we are going test
+        Optional<JobOrder> savedJobOfPrice = jobOrderService.searchJobOrderPrice(priceOrder);
+
+        //then - verify the output
+
+        Assertions.assertThat(savedJobOfPrice).isNotNull();
+        Assertions.assertThat(savedJobOfPrice.get()).isEqualTo(jobOrder);
+        Assertions.assertThat(savedJobOfPrice.get().getPrice()).isEqualTo(priceOrder);
+    }
+
+    //junit test for
+    @DisplayName("Junit test for search Order By Price method which find Price is not Exist")
+    @Test
+    public void givenJobOrder_whenSearchOrderByPrice_thenReturnJobOrderOptionalEmpty() {
+        //given - precondition or setup
+        BigDecimal priceOrder = BigDecimal.valueOf(150);
+        BDDMockito.given(jobOrderRepository.findByPrice(priceOrder)).willReturn(Optional.empty());
+        //when - action or the behaviour that we are going test
+        Optional<JobOrder> savedJobOrder = jobOrderService.searchJobOrderPrice(priceOrder);
+        //then - verify the output
+        Assertions.assertThat(savedJobOrder).isEmpty();
+    }
+
 }
