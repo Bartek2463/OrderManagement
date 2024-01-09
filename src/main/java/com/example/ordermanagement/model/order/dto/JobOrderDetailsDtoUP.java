@@ -27,12 +27,11 @@ public class JobOrderDetailsDtoUP {
                 .setDescription(jobOrder.getDescription());
     }
 
-    public static JobOrder mapToModel(JobOrderDetailsDTO jobOrderDetailsDTO) {
+    public static JobOrder mapToModel(JobOrderDetailsDtoUP jobOrderDetailsDtoUP) {
         return new JobOrder()
-                .setPrice(jobOrderDetailsDTO.getPrice())
-                .setDateJobOrder(jobOrderDetailsDTO.getDateJobOrder())
-                .setDescription(jobOrderDetailsDTO.getDescription())
-                .setUser(jobOrderDetailsDTO.getUser());
+                .setPrice(jobOrderDetailsDtoUP.getPrice())
+                .setDateJobOrder(jobOrderDetailsDtoUP.getDateJobOrder())
+                .setDescription(jobOrderDetailsDtoUP.getDescription());
 
     }
 

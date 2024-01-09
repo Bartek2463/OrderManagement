@@ -2,10 +2,10 @@ package com.example.ordermanagement.service;
 
 import com.example.ordermanagement.model.order.JobOrder;
 import com.example.ordermanagement.model.order.dto.JobOrderDetailsDTO;
+import com.example.ordermanagement.model.order.dto.JobOrderDetailsDtoUP;
 import com.example.ordermanagement.model.user.User;
 import com.example.ordermanagement.repository.JobOrderRepository;
 import com.example.ordermanagement.repository.UserRepository;
-import lombok.Data;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,7 +19,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.math.BigDecimal;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -147,6 +146,29 @@ class JobOrderServiceTest {
         Assertions.assertThat(savedJobOrder).isEmpty();
     }
 
+    //junit test for
+    @Test
+    public void givenJobOrder_whenUpdateById_thenReturnUpdateByidObjectUpdated() {
+        //given - precondition or setup
+        Long idJobOrder = 1l;
+        BDDMockito.given(jobOrderRepository.save(jobOrder)).willReturn(jobOrder);
+        Optional<JobOrder> findJobOrder = jobOrderService.searchById(idJobOrder);
+
+        //when - action or the behaviour that we are going test
+
+        findJobOrder.get().setPrice(BigDecimal.valueOf(250));
+        findJobOrder.get().setDescription("Order about two car repair ");
+
+        BDDMockito.given(jobOrderRepository.save(findJobOrder.get())).willReturn(findJobOrder.get());
+        JobOrderDetailsDtoUP jobOrderDetailsDtoUP = jobOrderService.updateByid(JobOrderDetailsDtoUP.mapToDto(findJobOrder.get()), 1l);
+
+        JobOrder updatedJobOrder = JobOrderDetailsDtoUP.mapToModel(jobOrderDetailsDtoUP);
+        //then - verify the output
+
+        Assertions.assertThat(updatedJobOrder).isNotNull();
+        Assertions.assertThat(updatedJobOrder.getPrice()).isEqualTo(BigDecimal.valueOf(250));
+        Assertions.assertThat(updatedJobOrder.getDescription()).isEqualTo("Order about two car repair ");
+    }
 
 
 }
