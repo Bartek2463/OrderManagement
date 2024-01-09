@@ -22,6 +22,10 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
 @ExtendWith(MockitoExtension.class)
 class JobOrderServiceTest {
 
@@ -169,6 +173,20 @@ class JobOrderServiceTest {
         Assertions.assertThat(updatedJobOrder.getPrice()).isEqualTo(BigDecimal.valueOf(250));
         Assertions.assertThat(updatedJobOrder.getDescription()).isEqualTo("Order about two car repair ");
     }
+    @DisplayName("Junit test for deleteUser method")
+    @Test
+    public void givenUserId_whenDeleteUser_thenNothing() {
+        //given - precondition or setup
+        long userId = 1l;
+        willDoNothing().given(userRepository).deleteById(1l);
+
+        //when - action or the behaviour that we are going test
+        userService.delete(1l);
+
+        //then - verify the output
+        verify(userRepository, times(1)).deleteById(userId);
+    }
+
 
 
 }
