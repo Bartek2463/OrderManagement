@@ -5,6 +5,7 @@ import com.example.ordermanagement.model.order.JobOrder;
 import com.example.ordermanagement.model.order.dto.JobOrderDetailsDTO;
 import com.example.ordermanagement.model.order.dto.JobOrderDetailsDtoUP;
 import com.example.ordermanagement.model.order.dto.JobOrderListDTO;
+import com.example.ordermanagement.model.user.User;
 import com.example.ordermanagement.repository.JobOrderRepository;
 import com.example.ordermanagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +25,11 @@ public class JobOrderServiceImpl implements JobOrderService {
     private UserRepository userRepository;
 
     @Override
-    public JobOrderDetailsDTO saveJobOrder(JobOrder jobOrder, Long id) {
+    public JobOrderDetailsDTO saveJobOrder(JobOrderDetailsDTO dto, Long id) {
 
-        userRepository.findById(id).orElseThrow(() -> new ElementNotFoundException("JobOrder", "ID", id.toString()));
-
-        JobOrder save = jobOrderRepository.save(jobOrder);
+        User user = userRepository.findById(id).orElseThrow(() -> new ElementNotFoundException("JobOrder", "ID", id.toString()));
+        dto.setUser(user);
+        JobOrder save = jobOrderRepository.save(JobOrderDetailsDTO.mapToModel(dto));
         return JobOrderDetailsDTO.mapToDto(save);
     }
 

@@ -22,10 +22,10 @@ public class JobOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "price_job_order", nullable = false)
-    @NonNull
+//    @NonNull
     private BigDecimal price;
     @Column(name = "date_job_order", nullable = false)
-    @NonNull
+//    @NonNull
     private LocalDate dateJobOrder;
     @Column
     @NonNull

@@ -81,7 +81,7 @@ class JobOrderServiceTest {
         BDDMockito.given(userRepository.findById(1l)).willReturn(Optional.of(user));
 //
 //             //when - action or the behaviour that we are going test
-        JobOrderDetailsDTO jobOrderDetailsDTO = jobOrderService.saveJobOrder(jobOrder, user.getId());
+        JobOrderDetailsDTO jobOrderDetailsDTO = jobOrderService.saveJobOrder( JobOrderDetailsDTO.mapToDto(jobOrder), user.getId());
         //then - verify the output
         Assertions.assertThat(jobOrderDetailsDTO).isNotNull();
         Assertions.assertThat(jobOrderDetailsDTO).isExactlyInstanceOf(JobOrderDetailsDTO.class);
