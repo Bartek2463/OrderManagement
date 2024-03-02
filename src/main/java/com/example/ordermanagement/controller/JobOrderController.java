@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-public class JobOrderServiceController {
+public class JobOrderController {
 
     @Autowired
     private JobOrderService jobOrderService;

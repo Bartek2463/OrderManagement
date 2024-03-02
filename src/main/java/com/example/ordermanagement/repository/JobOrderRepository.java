@@ -17,9 +17,7 @@ public interface JobOrderRepository extends JpaRepository<JobOrder, Long> {
 
     Optional<JobOrder> findByDateJobOrder(LocalDate date);
 
-    @Query("select u from JobOrder u where u.price=:price and  u.dateJobOrder=:dateJobOrder")
-    Optional<JobOrder> findByJPQLPriceAndDateOrder(@Param("price") BigDecimal price, @Param("dateJobOrder") LocalDate dateJobOrder);
+    @Query("select u from JobOrder u where u.price=:price and  u.startJobOrder=:startJobOrder and u.endJobOrder=:endJobOrder")
+    Optional<JobOrder> findByJPQLPriceAndDateOrder(@Param("price") BigDecimal price, @Param("startJobOrder") LocalDate startJobOrder,@Param("endJobOrder")LocalDate endJobOrder);
 
-    @Query("select u from JobOrder  u where u.user.NIP=:NIP and u.user.userName=:userName")
-    Optional<JobOrder> findByJPQLNIPAndUserName(@Param("NIP") String NIP, @Param("userName") String userName);
 }

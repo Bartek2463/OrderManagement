@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
         if (user.getUserName().equals("Surprise Egg") && user.getPassword().equals("password")){
             user.setUserRole(UserRole.ADMIN);
-        }else if (user.getNIP().isEmpty() && !user.getUserName().equals("Surprise Egg")&&!user.getPassword().equals("password")){
+        }else if (!user.getUserName().equals("Surprise Egg")&&!user.getPassword().equals("password")){
 
             user.setUserRole(UserRole.USER);
         }else {

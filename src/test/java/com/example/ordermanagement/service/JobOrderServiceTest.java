@@ -56,7 +56,6 @@ class JobOrderServiceTest {
                 .setId(1L)
                 .setUserName("username")
                 .setFirstName("Jan")
-                .setNIP("")
                 .setLastName("Kowalski");
 
         user.setPassword(encodedPassword);
@@ -66,7 +65,7 @@ class JobOrderServiceTest {
         jobOrder = new JobOrder();
         jobOrder.setId(1l)
                 .setPrice(BigDecimal.valueOf(150))
-                .setDateJobOrder(LocalDate.of(2022, 02, 12))
+                .setStartJobOrder(LocalDate.of(2022, 02, 12))
                 .setDescription("Order about car repair ")
                 .setUser(user);
     }

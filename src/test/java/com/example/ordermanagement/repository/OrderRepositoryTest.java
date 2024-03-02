@@ -34,14 +34,14 @@ class OrderRepositoryTest {
                 .email("kowalski@gmail.com")
                 .firstName("Jan")
                 .lastName("Kowalski")
-                .NIP("")
                 .ordersList(List.of())
                 .userRole(UserRole.USER)
                 .build();
 
 
         jobOrder = JobOrder.builder()
-                .dateJobOrder(LocalDate.of(2020, 12, 02))
+                .startJobOrder(LocalDate.of(2020, 12, 02))
+                .endJobOrder(LocalDate.of(2020, 12, 12))
                 .price(BigDecimal.valueOf(20))
                 .user(user)
                 .build();
@@ -67,12 +67,14 @@ class OrderRepositoryTest {
         //given - precondition or setup
 
         JobOrder saveJobOrder1 = jobOrder = JobOrder.builder()
-                .dateJobOrder(LocalDate.of(2020, 12, 05))
+                .startJobOrder(LocalDate.of(2020, 12, 02))
+                .endJobOrder(LocalDate.of(2020, 12, 12))
                 .price(BigDecimal.valueOf(30))
                 .user(user)
                 .build();
         JobOrder saveJobOrder2 = jobOrder = JobOrder.builder()
-                .dateJobOrder(LocalDate.of(2020, 12, 05))
+                .startJobOrder(LocalDate.of(2020, 12, 02))
+                .endJobOrder(LocalDate.of(2020, 12, 12))
                 .price(BigDecimal.valueOf(30))
                 .user(user)
                 .build();
@@ -95,11 +97,11 @@ class OrderRepositoryTest {
         jobOrderRepository.save(jobOrder);
 
         //when - action or the behaviour that we are going test
-        JobOrder DBjobOrder = jobOrderRepository.findByDateJobOrder(jobOrder.getDateJobOrder()).get();
+        JobOrder DBjobOrder = jobOrderRepository.findByDateJobOrder(jobOrder.getStartJobOrder()).get();
         //then - verify the output
 
         Assertions.assertThat(DBjobOrder).isNotNull();
-        Assertions.assertThat(DBjobOrder.getDateJobOrder()).isEqualTo(LocalDate.of(2020, 12, 02));
+        Assertions.assertThat(DBjobOrder.getStartJobOrder()).isEqualTo(LocalDate.of(2020, 12, 02));
     }
 
     @DisplayName("Junit test for get Job Order By Price  ")
@@ -139,11 +141,11 @@ class OrderRepositoryTest {
         jobOrderRepository.save(jobOrder);
         //when - action or the behaviour that we are going test
         JobOrder savedJobOrder = jobOrderRepository.findById(jobOrder.getId()).get();
-        savedJobOrder.setDateJobOrder(LocalDate.of(2023, 02, 07));
+        savedJobOrder.setStartJobOrder(LocalDate.of(2023, 02, 07));
         savedJobOrder.setPrice(BigDecimal.valueOf(50));
         JobOrder updateJobOrder = jobOrderRepository.save(savedJobOrder);
         //then - verify the output
-        Assertions.assertThat(updateJobOrder.getDateJobOrder()).isEqualTo(LocalDate.of(2023, 02, 07));
+        Assertions.assertThat(updateJobOrder.getStartJobOrder()).isEqualTo(LocalDate.of(2023, 02, 07));
         Assertions.assertThat(updateJobOrder.getPrice()).isEqualTo(BigDecimal.valueOf(50));
     }
 
@@ -167,10 +169,11 @@ class OrderRepositoryTest {
         //given - precondition or setup
         jobOrderRepository.save(jobOrder);
         BigDecimal price = BigDecimal.valueOf(20);
-        LocalDate dateJobOrder = LocalDate.of(2020, 12, 02);
+        LocalDate startJobOrder = LocalDate.of(2020, 12, 02);
+        LocalDate endJobOrder = LocalDate.of(2020, 12, 12);
 
         //when - action or the behaviour that we are going test
-        Optional<JobOrder> byUserNameList = jobOrderRepository.findByJPQLPriceAndDateOrder(price, dateJobOrder);
+        Optional<JobOrder> byUserNameList = jobOrderRepository.findByJPQLPriceAndDateOrder(price, startJobOrder,endJobOrder);
         //then - verify the output
         Assertions.assertThat(byUserNameList).isNotEmpty();
         Assertions.assertThat(byUserNameList.stream().count()).isEqualTo(1);
@@ -188,11 +191,11 @@ class OrderRepositoryTest {
                 .email("kowalski@gmail.com")
                 .firstName("Jan")
                 .lastName("Kowalski")
-                .NIP("123456789")
                 .ordersList(List.of())
                 .build();
         JobOrder DBjobOrder = JobOrder.builder()
-                .dateJobOrder(LocalDate.of(2020, 12, 02))
+                .startJobOrder(LocalDate.of(2020, 12, 02))
+                .endJobOrder(LocalDate.of(2020, 12, 15))
                 .price(BigDecimal.valueOf(20))
                 .user(user)
                 .build();
@@ -200,13 +203,7 @@ class OrderRepositoryTest {
         jobOrderRepository.save(DBjobOrder);
         String NIP = "123456789";
         String userName = "John";
-        //when - action or the behaviour that we are going test
-        Optional<JobOrder> byJPQLNIPAndUserName = jobOrderRepository.findByJPQLNIPAndUserName(NIP, userName);
 
-        //then - verify the output
-        Assertions.assertThat(byJPQLNIPAndUserName).isNotEmpty();
-        Assertions.assertThat(byJPQLNIPAndUserName.stream().count()).isEqualTo(1);
-        Assertions.assertThat(byJPQLNIPAndUserName.get().getUser().getUserRole()).isEqualTo(UserRole.OWNER);
     }
 
 }

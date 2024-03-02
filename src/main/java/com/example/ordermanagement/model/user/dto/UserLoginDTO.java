@@ -5,6 +5,8 @@ import com.example.ordermanagement.model.user.UserRole;
 import lombok.*;
 import lombok.experimental.Accessors;
 
+import java.beans.Transient;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -20,6 +22,8 @@ public class UserLoginDTO {
     private String lastName;
     private UserRole role;
 
+    private String token;
+
     public static UserLoginDTO mapToDto(User user){
         return new UserLoginDTO()
                 .setId(user.getId())
@@ -27,7 +31,8 @@ public class UserLoginDTO {
                 .setPassword(user.getPassword())
                 .setFirstName(user.getFirstName())
                 .setLastName(user.getLastName())
-                .setRole(user.getUserRole());
+                .setRole(user.getUserRole())
+                .setToken(user.getToken());
     }
     public static User mapToModel(UserLoginDTO userLoginDTO){
         return new User()
@@ -36,7 +41,8 @@ public class UserLoginDTO {
                 .setPassword(userLoginDTO.getPassword())
                 .setFirstName(userLoginDTO.getFirstName())
                 .setLastName(userLoginDTO.getLastName())
-                .setUserRole(userLoginDTO.getRole());
+                .setUserRole(userLoginDTO.getRole())
+                .setToken(userLoginDTO.getToken());
 
     }
 

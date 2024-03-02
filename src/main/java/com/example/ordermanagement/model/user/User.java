@@ -47,10 +47,6 @@ public class User {
 
     @Column(name = "last_name", nullable = false)
     private String lastName;
-    @Size(min = 10, max = 10, message = "Number NIP must have exactly 10 characters")
-    @Column(name = "NIP_Number", nullable = false)
-    private String NIP;
-
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role")

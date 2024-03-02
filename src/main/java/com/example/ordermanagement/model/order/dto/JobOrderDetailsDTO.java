@@ -19,7 +19,8 @@ public class JobOrderDetailsDTO {
 
     private Long id;
     private BigDecimal price;
-    private LocalDate dateJobOrder;
+    private LocalDate startJobOrder;
+    private LocalDate endJobOrder;
     private String description;
     @JsonIgnore
     private User user;
@@ -28,7 +29,8 @@ public class JobOrderDetailsDTO {
         return new JobOrderDetailsDTO()
                 .setId(jobOrder.getId())
                 .setPrice(jobOrder.getPrice())
-                .setDateJobOrder(jobOrder.getDateJobOrder())
+                .setStartJobOrder(jobOrder.getStartJobOrder())
+                .setEndJobOrder(jobOrder.getEndJobOrder())
                 .setDescription(jobOrder.getDescription())
                 .setUser(jobOrder.getUser());
     }
@@ -37,7 +39,8 @@ public class JobOrderDetailsDTO {
         return new JobOrder()
                 .setId(jobOrderDetailsDTO.getId())
                 .setPrice(jobOrderDetailsDTO.getPrice())
-                .setDateJobOrder(jobOrderDetailsDTO.getDateJobOrder())
+                .setStartJobOrder(jobOrderDetailsDTO.getStartJobOrder())
+                .setEndJobOrder(jobOrderDetailsDTO.getEndJobOrder())
                 .setDescription(jobOrderDetailsDTO.getDescription())
                 .setUser(jobOrderDetailsDTO.getUser());
 

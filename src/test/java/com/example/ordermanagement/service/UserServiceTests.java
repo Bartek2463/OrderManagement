@@ -54,7 +54,6 @@ class UserServiceTests {
                 .setId(1L)
                 .setUserName("username")
                 .setFirstName("Jan")
-                .setNIP("")
                 .setLastName("Kowalski");
 
         user.setPassword(encodedPassword);
@@ -149,7 +148,6 @@ class UserServiceTests {
                 .setPassword("password")
                 .setFirstName("Jan")
                 .setLastName("Nowak")
-                .setNIP("")
                 .setEmail("jan@gmail.com");
         given(userRepository.saveAndFlush(user1)).willReturn(user1);
         //when - action or the behaviour that we are going test

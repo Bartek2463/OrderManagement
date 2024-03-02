@@ -26,7 +26,12 @@ public class JobOrder {
     private BigDecimal price;
     @Column(name = "date_job_order", nullable = false)
 //    @NonNull
-    private LocalDate dateJobOrder;
+    private LocalDate startJobOrder;
+
+    @Column(name = "start_job_order", nullable = false)
+    private LocalDate endJobOrder;
+
+
     @Column
     @NonNull
     private String description;
