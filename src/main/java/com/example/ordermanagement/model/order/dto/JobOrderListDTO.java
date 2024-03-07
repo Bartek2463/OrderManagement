@@ -22,7 +22,7 @@ public class JobOrderListDTO {
 
     private Long id;
     private LocalDate startJobOrder;
-    private BigDecimal price;
+    private Integer price;
 
     public static JobOrderListDTO mapToDto(JobOrder jobOrder) {
         return new JobOrderListDTO()

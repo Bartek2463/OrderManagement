@@ -13,11 +13,11 @@ import java.util.Optional;
 @Repository
 public interface JobOrderRepository extends JpaRepository<JobOrder, Long> {
 
-    Optional<JobOrder> findByPrice(BigDecimal price);
+    Optional<JobOrder> findByPrice(Integer price);
 
-    Optional<JobOrder> findByDateJobOrder(LocalDate date);
+//    Optional<JobOrder> findByDateJobOrder(LocalDate startDate);
 
-    @Query("select u from JobOrder u where u.price=:price and  u.startJobOrder=:startJobOrder and u.endJobOrder=:endJobOrder")
-    Optional<JobOrder> findByJPQLPriceAndDateOrder(@Param("price") BigDecimal price, @Param("startJobOrder") LocalDate startJobOrder,@Param("endJobOrder")LocalDate endJobOrder);
+    @Query("select u from JobOrder u where u.price=:price and  u.startJobOrder=:startJobOrder")
+    Optional<JobOrder> findByJPQLPriceAndDateOrder(@Param("price") Integer price, @Param("startJobOrder") LocalDate startJobOrder);
 
 }

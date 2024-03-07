@@ -18,7 +18,7 @@ import java.time.LocalDate;
 public class JobOrderDetailsDTO {
 
     private Long id;
-    private BigDecimal price;
+    private Integer price;
     private LocalDate startJobOrder;
     private LocalDate endJobOrder;
     private String description;

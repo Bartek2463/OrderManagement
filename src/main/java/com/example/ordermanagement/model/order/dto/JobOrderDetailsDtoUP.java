@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Accessors(chain = true)
 public class JobOrderDetailsDtoUP {
 
-    private BigDecimal price;
+    private Integer price;
     private LocalDate dateJobOrder;
     private String description;
 

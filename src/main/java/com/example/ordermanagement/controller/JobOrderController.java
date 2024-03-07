@@ -26,7 +26,7 @@ public class JobOrderController {
     @Autowired
     private UserRestExceptionHandler exceptionHandler;
 
-   @PostMapping("/owners/{ownerId}/addjobOrder")
+   @PostMapping("/owners/{ownerId}/addJobOrder")
 
     public ResponseEntity<?> saveJobOrder(@RequestBody JobOrderDetailsDTO jobOrderDetailsDTO, @PathVariable("ownerId")Long ownerId ){
        Optional<User> findUser = userService.searchById(ownerId);

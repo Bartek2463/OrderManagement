@@ -33,13 +33,13 @@ public class JobOrderServiceImpl implements JobOrderService {
         return JobOrderDetailsDTO.mapToDto(save);
     }
 
-    @Override
-    public Optional<JobOrder> searchJobOrderDate(LocalDate localDate) {
-        return jobOrderRepository.findByDateJobOrder(localDate);
-    }
+//    @Override
+//    public Optional<JobOrder> searchJobOrderDate(LocalDate startDate) {
+//        return jobOrderRepository.findByDateJobOrder(startDate);
+//    }
 
     @Override
-    public Optional<JobOrder> searchJobOrderPrice(BigDecimal price) {
+    public Optional<JobOrder> searchJobOrderPrice(Integer price) {
         return jobOrderRepository.findByPrice(price);
     }
 
