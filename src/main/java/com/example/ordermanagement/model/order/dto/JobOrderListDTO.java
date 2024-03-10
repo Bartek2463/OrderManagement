@@ -21,20 +21,20 @@ public class JobOrderListDTO {
 
 
     private Long id;
-    private LocalDate date;
+    private LocalDate startJobOrder;
     private BigDecimal price;
 
     public static JobOrderListDTO mapToDto(JobOrder jobOrder) {
         return new JobOrderListDTO()
                 .setId(jobOrder.getId())
-                .setDate(jobOrder.getDateJobOrder())
+                .setStartJobOrder(jobOrder.getStartJobOrder())
                 .setPrice(jobOrder.getPrice());
     }
 
     public static JobOrder mapToModel(JobOrderListDTO jobOrderListDTO){
         return new JobOrder()
                 .setId(jobOrderListDTO.getId())
-                .setDateJobOrder(jobOrderListDTO.date)
+                .setStartJobOrder(jobOrderListDTO.startJobOrder)
                 .setPrice(jobOrderListDTO.getPrice());
     }
 

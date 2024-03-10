@@ -33,7 +33,6 @@ class UserRepositoryTest {
                 .email("kowalski@gmail.com")
                 .firstName("Jan")
                 .lastName("Kowalski")
-                .NIP("")
                 .ordersList(List.of())
                 .userRole(UserRole.USER)
                 .build();
@@ -61,7 +60,6 @@ class UserRepositoryTest {
                 .email("nowak@gmail.com")
                 .firstName("Tomasz")
                 .lastName("Nowak")
-                .NIP("")
                 .userRole(UserRole.USER)
                 .build();
 

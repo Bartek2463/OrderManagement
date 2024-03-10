@@ -23,14 +23,14 @@ public class JobOrderDetailsDtoUP {
     public static JobOrderDetailsDtoUP mapToDto(JobOrder jobOrder) {
         return new JobOrderDetailsDtoUP()
                 .setPrice(jobOrder.getPrice())
-                .setDateJobOrder(jobOrder.getDateJobOrder())
+                .setDateJobOrder(jobOrder.getStartJobOrder())
                 .setDescription(jobOrder.getDescription());
     }
 
     public static JobOrder mapToModel(JobOrderDetailsDtoUP jobOrderDetailsDtoUP) {
         return new JobOrder()
                 .setPrice(jobOrderDetailsDtoUP.getPrice())
-                .setDateJobOrder(jobOrderDetailsDtoUP.getDateJobOrder())
+                .setStartJobOrder(jobOrderDetailsDtoUP.getDateJobOrder())
                 .setDescription(jobOrderDetailsDtoUP.getDescription());
 
     }
