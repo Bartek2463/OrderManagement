@@ -11,8 +11,6 @@ import com.example.ordermanagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,13 +31,13 @@ public class JobOrderServiceImpl implements JobOrderService {
         return JobOrderDetailsDTO.mapToDto(save);
     }
 
-    @Override
-    public Optional<JobOrder> searchJobOrderDate(LocalDate localDate) {
-        return jobOrderRepository.findByDateJobOrder(localDate);
-    }
+//    @Override
+//    public Optional<JobOrder> searchJobOrderDate(LocalDate startDate) {
+//        return jobOrderRepository.findByDateJobOrder(startDate);
+//    }
 
     @Override
-    public Optional<JobOrder> searchJobOrderPrice(BigDecimal price) {
+    public Optional<JobOrder> searchJobOrderPrice(Integer price) {
         return jobOrderRepository.findByPrice(price);
     }
 
@@ -60,7 +58,8 @@ public class JobOrderServiceImpl implements JobOrderService {
         if (jobOrder.isEmpty()) {
             return null;
         }
-        jobOrderDetailsDtoUp.setDateJobOrder(jobOrderDetailsDtoUp.getDateJobOrder());
+        jobOrderDetailsDtoUp.setStartJobOrder(jobOrderDetailsDtoUp.getStartJobOrder());
+        jobOrderDetailsDtoUp.setEndJobOrder(jobOrderDetailsDtoUp.getEndJobOrder());
         jobOrderDetailsDtoUp.setPrice(jobOrderDetailsDtoUp.getPrice());
         jobOrderDetailsDtoUp.setDescription(jobOrderDetailsDtoUp.getDescription());
         JobOrder saveEditJobOrder = jobOrderRepository.save(jobOrder.get());
