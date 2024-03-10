@@ -11,8 +11,6 @@ import com.example.ordermanagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,7 +58,8 @@ public class JobOrderServiceImpl implements JobOrderService {
         if (jobOrder.isEmpty()) {
             return null;
         }
-        jobOrderDetailsDtoUp.setDateJobOrder(jobOrderDetailsDtoUp.getDateJobOrder());
+        jobOrderDetailsDtoUp.setStartJobOrder(jobOrderDetailsDtoUp.getStartJobOrder());
+        jobOrderDetailsDtoUp.setEndJobOrder(jobOrderDetailsDtoUp.getEndJobOrder());
         jobOrderDetailsDtoUp.setPrice(jobOrderDetailsDtoUp.getPrice());
         jobOrderDetailsDtoUp.setDescription(jobOrderDetailsDtoUp.getDescription());
         JobOrder saveEditJobOrder = jobOrderRepository.save(jobOrder.get());

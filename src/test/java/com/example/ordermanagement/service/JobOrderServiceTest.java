@@ -66,6 +66,7 @@ class JobOrderServiceTest {
         jobOrder.setId(1l)
                 .setPrice(150)
                 .setStartJobOrder(LocalDate.of(2022, 02, 12))
+                .setEndJobOrder(LocalDate.of(2022, 02, 15))
                 .setDescription("Order about car repair ")
                 .setUser(user);
     }
@@ -80,7 +81,7 @@ class JobOrderServiceTest {
         BDDMockito.given(userRepository.findById(1l)).willReturn(Optional.of(user));
 //
 //             //when - action or the behaviour that we are going test
-        JobOrderDetailsDTO jobOrderDetailsDTO = jobOrderService.saveJobOrder( JobOrderDetailsDTO.mapToDto(jobOrder), user.getId());
+        JobOrderDetailsDTO jobOrderDetailsDTO = jobOrderService.saveJobOrder(JobOrderDetailsDTO.mapToDto(jobOrder), user.getId());
         //then - verify the output
         Assertions.assertThat(jobOrderDetailsDTO).isNotNull();
         Assertions.assertThat(jobOrderDetailsDTO).isExactlyInstanceOf(JobOrderDetailsDTO.class);
@@ -97,7 +98,7 @@ class JobOrderServiceTest {
 //        LocalDate savedDateJobOrder = LocalDate.of(2022, 02, 12);
 //        BDDMockito.given(jobOrderRepository.findByDateJobOrder(savedDateJobOrder)).willReturn(Optional.of(jobOrder));
 //        //when - action or the behaviour that we are going test
-     //   Optional<JobOrder> saveJobOrder = jobOrderService.searchJobOrderDate(savedDateJobOrder);
+        //   Optional<JobOrder> saveJobOrder = jobOrderService.searchJobOrderDate(savedDateJobOrder);
         // TODO: 07.03.2024  
         //then - verify the output
 
@@ -123,7 +124,7 @@ class JobOrderServiceTest {
     @Test
     public void givenJobOrder_whenSearchOrderByPrice_thenReturnJobOrderObject() {
         //given - precondition or setup
-       Integer priceOrder = Integer.valueOf(150);
+        Integer priceOrder = Integer.valueOf(150);
         BDDMockito.given(jobOrderRepository.findByPrice(150)).willReturn(Optional.of(jobOrder));
         //when - action or the behaviour that we are going test
         Optional<JobOrder> savedJobOfPrice = jobOrderService.searchJobOrderPrice(priceOrder);
@@ -149,17 +150,20 @@ class JobOrderServiceTest {
     }
 
     //junit test for
+    @DisplayName("Junit test for Update JobOrder to search ById")
     @Test
     public void givenJobOrder_whenUpdateById_thenReturnUpdateByidObjectUpdated() {
         //given - precondition or setup
         Long idJobOrder = 1l;
         BDDMockito.given(jobOrderRepository.save(jobOrder)).willReturn(jobOrder);
+        BDDMockito.given(jobOrderRepository.findById(idJobOrder)).willReturn(Optional.of(jobOrder));
         Optional<JobOrder> findJobOrder = jobOrderService.searchById(idJobOrder);
+
 
         //when - action or the behaviour that we are going test
 
-        findJobOrder.get().setPrice(23);
-        findJobOrder.get().setStartJobOrder(LocalDate.of(2022, 02, 12));
+        findJobOrder.get().setPrice(250);
+        findJobOrder.get().setStartJobOrder(LocalDate.of(2022, 02, 13));
         findJobOrder.get().setDescription("Order about two car repair ");
 
         BDDMockito.given(jobOrderRepository.save(findJobOrder.get())).willReturn(findJobOrder.get());
@@ -172,6 +176,7 @@ class JobOrderServiceTest {
         Assertions.assertThat(updatedJobOrder.getPrice()).isEqualTo(Integer.valueOf(250));
         Assertions.assertThat(updatedJobOrder.getDescription()).isEqualTo("Order about two car repair ");
     }
+
     @DisplayName("Junit test for deleteUser method")
     @Test
     public void givenUserId_whenDeleteUser_thenNothing() {
@@ -185,7 +190,6 @@ class JobOrderServiceTest {
         //then - verify the output
         verify(userRepository, times(1)).deleteById(userId);
     }
-
 
 
 }
