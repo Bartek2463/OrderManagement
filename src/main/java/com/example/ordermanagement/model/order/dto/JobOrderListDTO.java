@@ -22,19 +22,22 @@ public class JobOrderListDTO {
 
     private Long id;
     private LocalDate startJobOrder;
-    private BigDecimal price;
+    private LocalDate endJobOrder;
+    private Integer price;
 
     public static JobOrderListDTO mapToDto(JobOrder jobOrder) {
         return new JobOrderListDTO()
                 .setId(jobOrder.getId())
                 .setStartJobOrder(jobOrder.getStartJobOrder())
+                .setEndJobOrder(jobOrder.getEndJobOrder())
                 .setPrice(jobOrder.getPrice());
     }
 
     public static JobOrder mapToModel(JobOrderListDTO jobOrderListDTO){
         return new JobOrder()
                 .setId(jobOrderListDTO.getId())
-                .setStartJobOrder(jobOrderListDTO.startJobOrder)
+                .setStartJobOrder(jobOrderListDTO.getStartJobOrder())
+                .setEndJobOrder(jobOrderListDTO.getEndJobOrder())
                 .setPrice(jobOrderListDTO.getPrice());
     }
 

@@ -4,7 +4,6 @@ import com.example.ordermanagement.model.order.JobOrder;
 import lombok.*;
 import lombok.experimental.Accessors;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @NoArgsConstructor
@@ -15,22 +14,25 @@ import java.time.LocalDate;
 @Accessors(chain = true)
 public class JobOrderDetailsDtoUP {
 
-    private BigDecimal price;
-    private LocalDate dateJobOrder;
+    private Integer price;
+    private LocalDate startJobOrder;
+    private LocalDate endJobOrder;
     private String description;
 
 
     public static JobOrderDetailsDtoUP mapToDto(JobOrder jobOrder) {
         return new JobOrderDetailsDtoUP()
                 .setPrice(jobOrder.getPrice())
-                .setDateJobOrder(jobOrder.getStartJobOrder())
+                .setStartJobOrder(jobOrder.getStartJobOrder())
+                .setEndJobOrder(jobOrder.getEndJobOrder())
                 .setDescription(jobOrder.getDescription());
     }
 
     public static JobOrder mapToModel(JobOrderDetailsDtoUP jobOrderDetailsDtoUP) {
         return new JobOrder()
                 .setPrice(jobOrderDetailsDtoUP.getPrice())
-                .setStartJobOrder(jobOrderDetailsDtoUP.getDateJobOrder())
+                .setStartJobOrder(jobOrderDetailsDtoUP.getStartJobOrder())
+                .setEndJobOrder(jobOrderDetailsDtoUP.getEndJobOrder())
                 .setDescription(jobOrderDetailsDtoUP.getDescription());
 
     }
