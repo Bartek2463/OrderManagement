@@ -52,7 +52,7 @@ class UserRepositoryTest {
 
     @DisplayName("Junit test for get all users operation ")
     @Test
-    public void givenUserList_whenFindAll_thenUserList() {
+    public void ivenUserList_whenFindAll_thenUserList() {
         //given
         User userSave1 = User.builder()
                 .userName("Tomson")
